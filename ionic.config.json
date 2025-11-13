@@ -1,0 +1,7 @@
+{
+  "name": "Grow-Farms-App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
