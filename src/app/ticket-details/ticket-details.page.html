@@ -1,0 +1,99 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div class="header-section">
+      <ion-buttons slot="start">
+        <ion-back-button
+          defaultHref="/my-profile"
+          icon="chevron-back-outline">
+        </ion-back-button>
+      </ion-buttons>
+      <div class="header-text">
+        <h1 class="page-title">
+          Ticket #{{myTicketDetails?.ticket_id}}
+        </h1>
+        <span class="status-badge" [ngClass]="myTicketDetails?.status">{{myTicketDetails?.status | titlecase}}</span>
+      </div>
+      <!-- <div class="notification-icon">
+        <ion-icon name="download-outline"></ion-icon>
+      </div> -->
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Ticket Summary -->
+   <div class="info-card">
+    <h2 class="card-title">
+      Ticket Summary
+    </h2>
+    <div class="info-row">
+      <span>Subject</span>
+      <strong>{{myTicketDetails?.ticket_subject}}</strong>
+    </div>
+    <div class="info-row">
+      <span>Category</span>
+      <strong>{{myTicketDetails?.category}}</strong>
+    </div>
+    <div class="info-row">
+      <span>Status</span>
+      <strong [ngClass]="myTicketDetails?.status" class="status-text"> {{myTicketDetails?.status | titlecase}} </strong>
+    </div>
+    <div class="info-row">
+      <span>Created On</span>
+      <strong>{{myTicketDetails?.created_date}}</strong>
+    </div>
+  </div>
+  <!-- Customer -->
+   <div class="info-card">
+    <h2 class="card-title">
+      Customer Details
+    </h2>
+    <div class="contact-item">
+      <ion-icon name="person-outline"></ion-icon>
+      <div>
+        <p>Name</p>
+        <h4>{{myTicketDetails?.user_name}}</h4>
+      </div>
+    </div>
+    <div class="contact-item">
+      <ion-icon name="call-outline"></ion-icon>
+      <div>
+        <p>Contact</p>
+        <h4>{{myTicketDetails?.contact_no}}</h4>
+      </div>
+    </div>
+    <div class="contact-item">
+      <ion-icon name="business-outline"></ion-icon>
+      <div>
+        <p>Project</p>
+        <h4>{{myTicketDetails?.project_name}}</h4>
+      </div>
+    </div>
+  </div>
+  <!-- Payment -->
+  <div class="info-card">
+    <h2 class="card-title">
+      Payment Details
+    </h2>
+    <div class="info-row">
+      <span>Payment Method</span>
+      <strong>{{myTicketDetails?.payment_method}}</strong>
+    </div>
+    <!-- <div class="info-row">
+      <span>Receipt</span>
+      <strong *ngIf="myTicketDetails?.payment_receipt;else noReceipt">Uploaded</strong>
+      <ng-template #noReceipt>
+        <span class="receipt-empty">
+          Not Uploaded
+        </span>
+      </ng-template>
+    </div> -->
+  </div>
+  <!-- Description -->
+   <div class="info-card">
+    <h2 class="card-title">
+      Description
+    </h2>
+    <p class="description">{{myTicketDetails?.description}}</p>
+  </div>
+</ion-content>

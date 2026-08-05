@@ -1,0 +1,144 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="welcome-text">
+      <h1 class="welcome-title">Profile</h1>
+    </div>
+    <div class="notification-icon" (click)="onLogout()"><!--(click)="onNotificationClick()"-->
+      <ion-icon name="log-out-outline"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Profile Info -->
+  <div class="profile-info">
+    <h2 class="user-name">{{ currentUser?.FULL_NAME }}</h2>
+    <!-- <ion-button class="edit-profile-btn" (click)="onEditProfile()">
+      Edit profile
+    </ion-button> -->
+  </div>
+
+  <!-- Tabs -->
+  <div class="profile-tabs">
+    <div 
+      class="tab-item" 
+      [class.active]="selectedTab === 'profile'"
+      (click)="switchTab('profile')">
+      <span class="tab-label">My Profile</span>
+    </div>
+    <div 
+      class="tab-item" 
+      [class.active]="selectedTab === 'tickets'"
+      (click)="switchTab('tickets')">
+      <span class="tab-label">Your Tickets</span>
+    </div>
+  </div>
+
+  <!-- My Profile Tab Content -->
+  <div class="tab-content" *ngIf="selectedTab === 'profile'">
+    <div class="profile-content">
+      <!-- User Name -->
+      <div class="profile-field">
+        <div class="field-icon user-icon">
+          <ion-icon name="person"></ion-icon>
+        </div>
+        <div class="field-info">
+          <p class="field-label">User Name</p>
+          <p class="field-value">{{ currentUser?.FULL_NAME }}</p>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="profile-field">
+        <div class="field-icon email-icon">
+          <ion-icon name="mail"></ion-icon>
+        </div>
+        <div class="field-info">
+          <p class="field-label">Email Id</p>
+          <p class="field-value">{{ currentUser?.EMAIL_ID }}</p>
+        </div>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="profile-field">
+        <div class="field-icon phone-icon">
+          <ion-icon name="call"></ion-icon>
+        </div>
+        <div class="field-info">
+          <p class="field-label">Mobile No</p>
+          <p class="field-value">{{ currentUser?.PHONE_NUMBER }}</p>
+        </div>
+      </div>
+
+      <!-- Delete Profile Button -->
+      <!-- <ion-button 
+        class="delete-profile-btn" 
+        fill="solid"
+        (click)="onDeleteProfile()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Delete Profile
+      </ion-button> -->
+    </div>
+  </div>
+
+  <!-- Your Tickets Tab Content -->
+  <div class="tab-content" *ngIf="selectedTab === 'tickets'">
+    <div class="tickets-content">
+      <!-- Stats Cards -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <p class="stat-label">In Progress</p>
+          <h3 class="stat-value verified">{{ countData.in_process }}</h3>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Pending</p>
+          <h3 class="stat-value pending">{{ countData.pending }}</h3>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Rejected</p>
+          <h3 class="stat-value rejected">{{ countData.rejected }}</h3>
+        </div>
+      </div>
+
+      <!-- New Ticket Button -->
+      <div class="new-ticket-wrapper">
+        <ion-button class="new-ticket-btn" (click)="navigateToNewTicket()">
+          New Ticket
+        </ion-button>
+      </div>
+
+      <!-- Tickets List -->
+      <div class="tickets-list">
+        <div class="ticket-card" *ngFor="let ticket of myTickets" (click)="viewTicket(ticket)">
+          <div class="ticket-header">
+            <div class="ticket-info">
+              <span class="ticket-number">#{{ ticket.id }} • payment</span>
+            </div>
+            <div class="ticket-status" [ngClass]="ticket.STATUS">
+              {{ ticket.STATUS }}
+            </div>
+          </div>
+
+          <div class="ticket-body">
+            <h3 class="ticket-title">{{ ticket.TICKET_SUBJECT }}</h3>
+            <!-- <p class="ticket-description">{{ ticket.description }}</p> -->
+          </div>
+
+          <div class="ticket-footer">
+            <span class="ticket-date">{{ ticket.CREATED_DATE | date:'dd-MM-yyyy' }}</span>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="myTickets.length === 0">
+          <p>No tickets found</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
+</ion-content>

@@ -1,0 +1,159 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/my-profile" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header-content">
+        <h1 class="header-title">Create Support Ticket</h1>
+        <p class="header-subtitle">Describe issue and we'll help you resolve it</p>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="ticket-form" (ngSubmit)="onSubmitTicket()">
+    <!-- Property Selection Card -->
+    <!-- <div class="form-card property-card">
+      <div class="property-select" (click)="selectProperty()">
+        <span class="property-name">{{ selectedProperty }}</span>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+    </div> -->
+    <!-- Main Form Card -->
+    <div class="form-card">
+      <div class="property-select" (click)="selectProperty()">
+        <span class="property-name">{{ selectedProperty }}</span>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+      <div class="divider"></div>
+      <!-- Category -->
+      <div class="input-group" (click)="selectCategory()">
+        <ion-label class="required">Category</ion-label>
+        <ion-item class="custom-input dropdown-input" lines="none" >
+          <ion-input
+            type="text"
+            placeholder="Select Category"
+            [(ngModel)]="ticketJson.category_name"
+            name="category_name"
+            readonly
+            required>
+          </ion-input>
+          <ion-icon name="chevron-down-outline" slot="end" class="dropdown-icon"></ion-icon>
+        </ion-item>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="input-group" (click)="selectPaymentMethod()">
+        <ion-label>Payment Method</ion-label>
+        <ion-item class="custom-input dropdown-input" lines="none" >
+          <ion-input
+            type="text"
+            placeholder="Select Payment Method"
+            [(ngModel)]="ticketJson.payment_method"
+            name="payment_method"
+            readonly
+            required>
+          </ion-input>
+          <ion-icon name="chevron-down-outline" slot="end" class="dropdown-icon"></ion-icon>
+        </ion-item>
+      </div>
+
+      <!-- Subject -->
+      <div class="input-group">
+        <ion-label class="required">Subject</ion-label>
+        <ion-item class="custom-input" lines="none">
+          <ion-input
+            type="text"
+            placeholder="Brief discussion of your issue"
+            [(ngModel)]="ticketJson.subject"
+            name="subject"
+            required>
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Description -->
+      <div class="input-group">
+        <ion-label class="required">Description</ion-label>
+        <ion-item class="custom-input textarea-input" lines="none">
+          <ion-textarea
+            placeholder="Enter Description"
+            [(ngModel)]="ticketJson.short_description"
+            name="short_description"
+            rows="5"
+            required>
+          </ion-textarea>
+        </ion-item>
+      </div>
+    </div>
+
+    <!-- Attach Files Card -->
+    <!-- <div class="form-card attach-card">
+      <h3 class="attach-title">Attach Files (Optional)</h3>
+      
+      <div class="upload-area" (click)="uploadFiles()">
+        <ion-icon name="add-outline" class="upload-icon"></ion-icon>
+        <p class="upload-text">Upload screenshots or documents</p>
+      </div>
+
+      <div class="uploaded-files" *ngIf="uploadedFiles.length > 0">
+        <div class="file-item" *ngFor="let file of uploadedFiles; let i = index">
+          <ion-icon name="document-outline" class="file-icon"></ion-icon>
+          <span class="file-name">{{ file.name }}</span>
+          <ion-icon name="close-circle" class="remove-icon" (click)="removeFile(i)"></ion-icon>
+        </div>
+      </div>
+    </div> -->
+    <!-- Upload Receipt Card -->
+    <div class="upload-card">
+      <h3 class="upload-title">Upload image</h3>
+    
+      <div class="upload-area" (click)="uploadFiles()">
+        <div class="upload-content">
+          <ion-icon name="add-outline"></ion-icon>
+          <span class="upload-text">Upload image</span>
+        </div>
+      </div>
+    
+      <!-- Single Uploaded File -->
+      <div class="uploaded-file" *ngIf="uploadedFile">
+        <!-- <ion-icon name="document-outline"></ion-icon> -->
+        <img [src]="uploadedFilePreview" class="receipt-preview" />
+        <span class="file-name">{{ uploadedFile?.name }}</span>
+        <ion-icon name="close-circle" (click)="removeFile()"></ion-icon>
+      </div>
+    </div>
+    <!-- <div class="upload-card">
+      <h3 class="upload-title">Upload Payment Receipt</h3>
+      
+      <div class="upload-area" (click)="uploadFiles()">
+        <div class="upload-content">
+          <ion-icon name="add-outline"></ion-icon>
+          <span class="upload-text">Upload receipt (Photo or PDF)</span>
+        </div>
+      </div>
+
+      <div class="uploaded-file" *ngIf="uploadedFiles.length > 0">
+        <div class="file-item" *ngFor="let file of uploadedFiles; let i = index">
+          <ion-icon name="document-outline"></ion-icon>
+          <span class="file-name">{{ file.name }}</span>
+          <ion-icon name="close-circle" (click)="removeFile(i)"></ion-icon>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Submit Button -->
+    <ion-button 
+      class="submit-btn" 
+      expand="block" 
+      type="submit"
+      [disabled]="!isFormValid()">
+      Submit Ticket
+    </ion-button>
+  </form>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
+</ion-content>

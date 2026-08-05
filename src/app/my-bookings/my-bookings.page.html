@@ -1,0 +1,143 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+     <!-- Header Section -->
+    <div class="header-section">
+      <div class="header-text">
+        <h1 class="page-title">My Bookings</h1>
+        <p class="total-bookings">{{ totalBookings }} total bookings</p>
+      </div>
+      <div class="notification-icon" (click)="onNotificationClick()">
+        <img src="assets/images/notification.svg" alt="Notification Icon" *ngIf="notificationCount > 0"/>
+        <img src="assets/images/notification1.svg" alt="Notification Icon" *ngIf="notificationCount == 0"/>
+        <!-- <ion-icon name="notifications-outline"></ion-icon>
+        <span class="notification-badge" *ngIf="notificationCount > 0"></span> -->
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-bar">
+        <ion-icon name="search-outline" class="search-icon"></ion-icon>
+        <input 
+          type="text" 
+          placeholder="Search bookings..." 
+          [(ngModel)]="searchQuery"
+          (input)="onSearch()"
+          class="search-input"
+        />
+      </div>
+    </div>
+    <!-- Filter Chips -->
+  <div class="filter-chips">
+    <ion-chip 
+      [class.active]="selectedFilter === 'all'" 
+      (click)="load_my_booking('all')"
+      class="filter-chip">
+      <ion-label>All</ion-label>
+    </ion-chip>
+    <ion-chip 
+      [class.active]="selectedFilter === 'Pending Payment'" 
+      (click)="load_my_booking('Pending Payment')"
+      class="filter-chip">
+      <ion-label>Pending Payment</ion-label>
+    </ion-chip>
+    <ion-chip 
+      [class.active]="selectedFilter === 'Document Verification'" 
+      (click)="load_my_booking('Document Verification')"
+      class="filter-chip">
+      <ion-label>Document Verification</ion-label>
+    </ion-chip>
+    <ion-chip 
+      [class.active]="selectedFilter === 'Confirmed'" 
+      (click)="load_my_booking('Confirmed')"
+      class="filter-chip">
+      <ion-label>Confirmed</ion-label>
+    </ion-chip>
+    <ion-chip 
+      [class.active]="selectedFilter === 'Cancelled'" 
+      (click)="load_my_booking('Cancelled')"
+      class="filter-chip">
+      <ion-label>Cancelled</ion-label>
+    </ion-chip>
+  </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Bookings List -->
+  <div class="bookings-container" *ngIf="dataLoaded && filteredBookings.length>0">
+    <div class="booking-card" *ngFor="let booking of filteredBookings" (click)="viewBooking(booking)"><!--*ngFor="let booking of filteredBookings"-->
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="ref-info">
+          <p class="ref-number">Ref: {{ booking.reference_code }}</p>
+          <h2 class="property-name">{{ booking.property_name }}</h2>
+          <div class="booked-by-row" *ngIf="booking.employee_name">
+            <span class="label">Booked By</span>
+            <span class="value">{{ booking.employee_name }}</span>
+          </div>
+          <!-- <div class="booked-by">
+            Booked By:
+            <span>{{ booking.booked_by }}</span>
+          </div> -->
+        </div>
+        <div class="status-badge" [ngClass]="getStatusClass(booking.status)">
+          {{ booking.status }}
+        </div>
+      </div>
+
+      <!-- Property Details -->
+      <div class="property-details">
+        <div class="detail-item">
+          <ion-icon name="location-outline" class="detail-icon location-icon"></ion-icon>
+          <span class="detail-text">Gat No: {{ booking.survey_no }}</span>
+        </div>
+        <div class="detail-item">
+          <!-- <ion-icon name="resize-outline" class="detail-icon area-icon"></ion-icon> -->
+          <img src="assets/images/sqft.svg" alt="Notification Icon" class="detail-icon area-icon"/>
+          <span class="detail-text">{{ booking.area_sqft | number }} sq.ft</span>
+        </div>
+      </div>
+
+      <!-- Payment Progress -->
+      <div class="payment-section">
+        <div class="progress-header">
+          <span class="progress-label">Payment Progress</span>
+          <span class="progress-percentage">{{ booking.progress_percent }}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="booking.progress_percent"></div>
+        </div>
+        <div class="payment-amounts">
+          <span class="paid-amount">Paid: ₹{{ booking.paid_amount | number }}</span>
+          <span class="total-amount">Total: ₹{{ booking.total_amount | number }}</span>
+        </div>
+      </div>
+
+      <!-- Booking Date -->
+      <div class="booking-date">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>Booked on {{ booking.booked_on | date:'dd. MM. yyyy' }}</span>
+        <!-- <span>Booked by {{ booking.employee_name }}</span> -->
+      </div>
+
+      <!-- Action Buttons -->
+      <!-- <div class="action-buttons">
+        <ion-button fill="clear" class="action-btn view-btn" (click)="viewBooking(booking)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+      </div> -->
+    </div>
+  </div>
+  <div class="booking-container" *ngIf="dataLoaded && filteredBookings.length==0">
+    <div class="empty-state">
+      <ion-icon name="document-text-outline" class="empty-icon"></ion-icon>
+      <p>Booking information will be available here</p>
+    </div>
+  </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
+</ion-content>

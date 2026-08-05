@@ -1,0 +1,183 @@
+.login-type-content {
+    --background: #F4F6F8;
+  
+    .content-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+  
+    .logo-section {
+      padding: 60px 20px 40px;
+      text-align: center;
+      background: #f5f5f5;
+      z-index: 2;
+  
+      .logo {
+        // width: 280px;
+        width: 190px;
+        max-width: 80%;
+        height: auto;
+      }
+    }
+
+    .investor_login_icon{
+        width: 48px;
+        height: 48px;
+    }
+
+    .end_user_login_icon{
+        width: 29px;
+        height: 48px;
+    }
+  
+    .title-section {
+      padding: 20px 20px 30px;
+      text-align: center;
+      background: #f5f5f5;
+      z-index: 2;
+  
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #3A3A3A;
+        margin: 0;
+        font-family: Montserrat;
+      }
+    }
+  
+    .login-options {
+      padding: 0 20px 40px;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .login-card {
+      margin: 0;
+    //   border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+  
+      &:active {
+        transform: scale(0.98);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      }
+  
+      ion-card-content {
+        padding: 24px 20px;
+      }
+  
+      .card-inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+  
+      .icon-wrapper {
+        position: relative;
+        flex-shrink: 0;
+  
+        .user-icon {
+          font-size: 48px;
+          color: #22c55e;
+        }
+  
+        .investor-icon {
+          font-size: 56px;
+        }
+  
+        .badge-icon {
+          position: absolute;
+          bottom: -4px;
+          right: -8px;
+          font-size: 24px;
+          color: #22c55e;
+          background: white;
+          border-radius: 50%;
+          padding: 2px;
+        }
+      }
+  
+      .card-text {
+        flex: 1;
+  
+        h2 {
+          font-size: 20px;
+          font-weight: 600;
+          color: #1E1E1E;
+          margin: 0;
+          font-family: Montserrat;
+        }
+      }
+    .align{
+        margin-left: 20px;
+    }
+    }
+
+.background-image {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45vh;
+  // background: linear-gradient(to bottom, rgba(245, 245, 245, 0.4) 0%, rgba(245, 245, 245, 0) 15%),
+  //             url('../../assets/images/background.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+  
+    // .background-image {
+    //   position: fixed;
+    //   bottom: 0;
+    //   left: 0;
+    //   right: 0;
+    //   height: 45vh;
+    //   background: linear-gradient(to bottom, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 0.3) 10%),
+    //               url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%2387CEEB;stop-opacity:1" /><stop offset="100%" style="stop-color:%23E0F6FF;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23sky)" width="1000" height="200"/><rect fill="%2322c55e" y="200" width="1000" height="250"/><rect fill="%231a9d4a" y="350" width="1000" height="100"/></svg>');
+    //   background-size: cover;
+    //   background-position: center bottom;
+    //   z-index: 0;
+      
+    //   &::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     background: 
+    //       repeating-linear-gradient(
+    //         0deg,
+    //         transparent,
+    //         transparent 3px,
+    //         rgba(26, 157, 74, 0.3) 3px,
+    //         rgba(26, 157, 74, 0.3) 4px
+    //       );
+    //     pointer-events: none;
+    //   }
+  
+    //   &::after {
+    //     content: '';
+    //     position: absolute;
+    //     bottom: 35%;
+    //     left: 10%;
+    //     width: 60px;
+    //     height: 30px;
+    //     background: linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+    //     clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    //     opacity: 0.6;
+    //   }
+    // }
+  }
+  
+  ion-content {
+    --padding-top: env(safe-area-inset-top);
+    --padding-bottom: env(safe-area-inset-bottom);
+  }

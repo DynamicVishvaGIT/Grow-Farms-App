@@ -1,20 +1,190 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <div class="header-section">
+      <div class="welcome-text">
+        <h1 class="welcome-title">Welcome {{ currentUser?.FULL_NAME }} !</h1>
+        <p class="welcome-subtitle">Here's your property overview</p>
+      </div>
+      <div class="notification-icon" (click)="onNotificationClick()"><!--(click)="onNotificationClick()"-->
+        <!-- <ion-icon name="notifications-outline"></ion-icon> -->
+        <img src="assets/images/notification.svg" alt="Notification Icon" *ngIf="notificationCount > 0"/>
+        <img src="assets/images/notification1.svg" alt="Notification Icon" *ngIf="notificationCount == 0"/>
+        <!-- <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span> -->
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- Header Section -->
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Total Cost Card -->
+  <div class="total-cost-card">
+    <div class="cost-left">
+      <div class="wallet-icon">
+        <!-- <ion-icon name="wallet-outline"></ion-icon> -->
+        <img src="assets/images/money.png" alt="Money Icon" />
+      </div>
+      <div class="cost-details">
+        <p class="cost-label">Total Cost</p>
+        <h2 class="cost-amount">₹{{ dashboardData?.total_property_amount | number }}</h2>
+      </div>
+    </div>
+    <div class="property-select" (click)="selectProperty()" *ngIf="properties.length>0"> 
+      <span>{{ selectedProperty.length > 12 ? (selectedProperty | slice:0:12) + '...' : selectedProperty }}</span>
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </div>
   </div>
+
+  <!-- Balance and Progress Card -->
+  <div class="balance-card">
+    <div class="balance-left">
+      <!-- Active Badge -->
+      <div class="active-badge">Active</div>
+
+      <!-- Balance Section -->
+      <div class="balance-info">
+        <div class="balance-icon">
+          <!-- <ion-icon name="cash-outline"></ion-icon> -->
+          <img src="assets/images/balance.png" alt="Balance Icon" />
+        </div>
+        <div class="balance-details">
+          <h3 class="balance-amount">₹{{ dashboardData?.balance | number }}</h3>
+          <p class="balance-label">Balance</p>
+        </div>
+      </div>
+
+      <!-- Amount Paid -->
+      <div class="amount-paid">
+        <p class="paid-label">Amount Paid</p>
+        <h4 class="paid-amount">₹{{ dashboardData?.amount_paid | number }}</h4>
+      </div>
+    </div>
+
+    <!-- Progress Circle -->
+    <div class="progress-circle">
+      <div class="circle-wrapper">
+        <svg class="progress-ring" width="140" height="140" style="transform: rotate(-90deg);">
+
+          <!-- Gradient -->
+          <defs>
+            <linearGradient id="progressGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#FF9D00" />
+              <stop offset="100%" stop-color="#FF5900" />
+            </linearGradient>
+          </defs>
+          <!-- Background Circle -->
+          <circle
+            stroke="#e0e0e0"
+            stroke-width="12"
+            fill="transparent"
+            r="58"
+            cx="70"
+            cy="70"
+            opacity="0.3"
+          />
+          <!-- Progress Circle -->
+          <circle
+            stroke="url(#progressGradient)"
+            stroke-width="12"
+            stroke-linecap="round"
+            fill="transparent"
+            r="58"
+            cx="70"
+            cy="70"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="dashOffset"
+            style="transition: stroke-dashoffset 0.5s ease;"
+          />
+        </svg>
+        <!-- <svg class="progress-ring" width="140" height="140">
+          <circle
+            class="progress-ring-circle-bg"
+            stroke="#e0e0e0"
+            stroke-width="12"
+            fill="transparent"
+            r="58"
+            cx="70"
+            cy="70"
+          />
+          <circle
+            class="progress-ring-circle"
+            stroke="#FF9500"
+            stroke-width="12"
+            fill="transparent"
+            r="58"
+            cx="70"
+            cy="70"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="dashOffset"
+          />
+        </svg> -->
+        <div class="progress-text">
+          <span class="current-slab">{{ dashboardData?.slab_progress?.paid_slabs }}</span>/<span class="total-slab">{{ dashboardData?.slab_progress?.total_slabs }}</span>
+          <span class="progress-label">Slab</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Payment Card -->
+  <div class="next-payment-card">
+    <div class="payment-header">
+      <div class="payment-icon">
+        <!-- <ion-icon name="card-outline"></ion-icon> -->
+        <img src="assets/images/wallet.png" alt="Balance Icon" />
+      </div>
+      <div class="payment-info">
+        <h3 class="payment-title">Next Payment Due</h3>
+        <p class="payment-date">Due on {{ dashboardData?.next_payment_due?.due_date }}</p>
+      </div>
+    </div>
+
+    <div class="payment-footer">
+      <h2 class="payment-amount">₹{{ dashboardData?.next_payment_due?.amount | number }}</h2>
+      <!-- <ion-button class="mark-payment-btn" (click)="onMarkPayment()">
+        Mark Payment
+      </ion-button> -->
+    </div>
+  </div>
+
+  <!-- Property Banner -->
+  <div class="property-banner">
+    <img [src]="propertyBannerUrl" alt="Property Banner" />
+  </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
 </ion-content>
+
+<!-- Bottom Tab Bar -->
+<!-- <ion-tabs>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+    <ion-tab-button tab="dashboard" (click)="navigateTo('dashboard')">
+      <ion-icon name="pie-chart"></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="booking" (click)="navigateTo('booking')">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label>Booking</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="payment" (click)="navigateTo('payment')">
+      <ion-icon name="wallet-outline"></ion-icon>
+      <ion-label>Payment</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="document" (click)="navigateTo('document')">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Document</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" (click)="navigateTo('profile')">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs> -->

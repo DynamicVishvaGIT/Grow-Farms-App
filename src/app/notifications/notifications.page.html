@@ -1,0 +1,69 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header-content">
+        <h1 class="page-title">Notifications</h1>
+        <p class="unread-count">{{ unreadCount }} unread notifications</p>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <button class="mark-read-btn" (click)="markAllAsRead()">
+        Mark all as read
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="notifications-container">
+    <!-- Notification Cards -->
+    <div 
+      class="notification-card" 
+      *ngFor="let notification of notifications"
+      [ngClass]="{
+        'unread': !notification.isRead,
+        'read': notification.isRead
+      }">
+      
+      <!-- Notification Header -->
+      <div class="notification-header">
+        <div class="notification-icon" [ngClass]="'icon-' + notification.type">
+          <ion-icon [name]="notification.iconName"></ion-icon>
+        </div>
+        <div class="notification-title-wrapper">
+          <h3 class="notification-title">{{ notification.title }}</h3>
+          <span class="notification-priority" [ngClass]="'priority-' + notification.priority.toLowerCase()">
+            {{ notification.priority }}
+          </span>
+        </div>
+        <button class="close-btn" (click)="dismissNotification(notification)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </div>
+
+      <!-- Notification Message -->
+      <p class="notification-message">{{ notification.message }}</p>
+
+      <!-- Notification Action -->
+      <button 
+        class="notification-action-btn" 
+        [ngClass]="'btn-' + notification.type"
+        (click)="handleNotificationAction(notification)">
+        {{ notification.actionText }}
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="notifications.length === 0">
+      <ion-icon name="notifications-outline"></ion-icon>
+      <h3>No Notifications</h3>
+      <p>You're all caught up!</p>
+    </div>
+  </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
+</ion-content>

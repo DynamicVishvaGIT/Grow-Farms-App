@@ -1,0 +1,206 @@
+.login-content {
+    --background: #F4F6F8;
+    --overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* full viewport height */
+    justify-content: center; /* vertically center login */
+    
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 0 20px;
+      
+      .logo-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 40px;
+        margin-bottom: 35px;
+        
+        .logo-container {
+          margin-bottom: 20px;
+          
+          .logo{
+            width: 220px;
+          }
+        }
+        
+        .brand-text {
+          font-size: 32px;
+          font-weight: 700;
+          color: #2196f3;
+          margin: 0;
+          letter-spacing: 1.5px;
+          
+          sup {
+            font-size: 18px;
+            vertical-align: super;
+          }
+        }
+      }
+      
+      .login-form {
+        flex: 1;
+        
+        .login-header {
+          text-align: center;
+          margin-bottom: 40px;
+          
+          h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 12px 0;
+            line-height: 1.2;
+          }
+          
+          p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+          }
+        }
+        
+        .input-group {
+          margin-bottom: 14px;
+          
+          ion-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+          }
+          
+          .custom-input {
+            --background: white;
+            // --border-radius: 12px;
+            --padding-start: 16px;
+            --padding-end: 16px;
+            --min-height: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            
+            .input-icon {
+              color: #999;
+              margin-right: 12px;
+              font-size: 22px;
+            }
+            
+            ion-input {
+              --placeholder-color: #999;
+              --color: #333;
+              font-size: 16px;
+            }
+            
+            .password-toggle {
+              --color: #999;
+              margin: 0;
+              
+              ion-icon {
+                font-size: 22px;
+              }
+            }
+          }
+        }
+        
+        .form-options {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        //   margin-bottom: 40px;
+          
+          .remember-section {
+            display: flex;
+            align-items: center;
+            
+            .remember-checkbox {
+              --size: 18px;
+              --checkmark-color: white;
+              --background-checked: #2196f3;
+              --border-color-checked: #2196f3;
+              margin-right: 8px;
+            }
+            
+            .remember-label {
+              font-size: 16px;
+              color: #333;
+            }
+          }
+          
+          .forgot-password-btn {
+            --color: #0067D5;
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+            height: auto;
+            text-transform: none;
+          }
+        }
+        
+        .login-btn {
+          --background: #FF9D00;
+          --background-hover: #FF9D00;
+          --background-activated: #FF9D00;
+          --color: white;
+          --border-radius: 12px;
+          --padding-top: 14px;
+          --padding-bottom: 14px;
+          font-size: 18px;
+          font-weight: 600;
+          //margin-bottom: 32px;
+          margin-top: 40px;
+          text-transform: none;
+        //   box-shadow: 0 4px 12px rgba(0, 78, 162, 1);
+        }
+        
+        .signup-section {
+          text-align: center;
+        //   margin-bottom: 40px;
+          
+          span {
+            color: #666;
+            font-size: 16px;
+          }
+          
+          .signup-btn {
+            --color: #0067D5;
+            font-size: 14px;
+            font-weight: 600;
+            // margin: 0;
+            height: auto;
+            text-transform: none;
+            margin-top: -7px;
+            margin-left: -16px;
+          }
+        }
+        
+        .terms-section {
+          text-align: center;
+        //   margin-bottom: 40px;
+          
+          p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.5;
+            margin: 0;
+            
+            .link-text {
+              color: #ff4444;
+              font-weight: 500;
+              text-decoration: none;
+              cursor: pointer;
+              
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }

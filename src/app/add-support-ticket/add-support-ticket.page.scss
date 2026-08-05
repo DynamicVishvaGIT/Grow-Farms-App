@@ -1,0 +1,358 @@
+ion-header {
+    ion-toolbar {
+      --background: #ffffff;
+      --min-height: 80px;
+  
+      ion-back-button {
+        --color: #000000;
+        font-size: 24px;
+      }
+  
+      ion-title {
+        padding: 0;
+      }
+    }
+  }
+  
+  .header-content {
+    text-align: left;
+    padding: 0;
+  }
+  
+  .header-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+  
+  .header-subtitle {
+    font-size: 14px;
+    color: #000000;
+    margin: 0;
+    font-weight: 400;
+  }
+  
+  ion-content {
+    --background: #f5f5f5;
+  }
+  
+  // Ticket Form
+  .ticket-form {
+    padding: 20px;
+  }
+  
+  // Form Cards
+  .form-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  // Property Card
+  .property-card {
+    padding: 20px 24px;
+  }
+  
+  .property-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+  
+    .property-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+    }
+  
+    ion-icon {
+      font-size: 16px;
+      color: #666666;
+    }
+  }
+
+  .divider{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px #DDDDDD solid;
+  }
+  
+  // Input Groups - Using your provided code style
+  .input-group {
+    margin-bottom: 12px;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    ion-label {
+        font-size: 14px;
+        font-weight: 400;
+        color: #222222;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .custom-input {
+        --background: white;
+        --padding-start: 16px;
+        --padding-end: 16px;
+        --min-height: 46px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #E9E9E9;
+      
+      .input-icon {
+        color: #999;
+        margin-right: 12px;
+        font-size: 22px;
+      }
+      
+      ion-input {
+        --placeholder-color: #999;
+        --color: #333;
+        font-size: 16px;
+      }
+  
+      ion-textarea {
+        --placeholder-color: #999;
+        --color: #333;
+        font-size: 16px;
+        margin-top: 8px;
+      }
+      
+      .password-toggle {
+        --color: #999;
+        margin: 0;
+        
+        ion-icon {
+          font-size: 22px;
+        }
+      }
+    }
+  
+    // Dropdown Input
+    .dropdown-input {
+      cursor: pointer;
+  
+      .dropdown-icon {
+        color: #1E1E1E;
+        font-size: 20px;
+      }
+    }
+  
+    // Textarea Input
+    .textarea-input {
+      --min-height: 120px;
+      align-items: flex-start;
+    }
+  }
+
+  .upload-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  
+    .upload-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1F2937;
+      margin: 0 0 12px 0;
+    }
+  
+    .upload-divider {
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        #E5E7EB 20%,
+        #E5E7EB 80%,
+        transparent
+      );
+      margin-bottom: 20px;
+    }
+  
+    .upload-area {
+      border: 2px dashed #E5E7EB;
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      .upload-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+  
+        ion-icon {
+          font-size: 28px;
+          color: #9CA3AF;
+        }
+  
+        .upload-text {
+          font-size: 14px;
+          color: #797979;
+        }
+      }
+  
+      &:active {
+        background: #F9FAFB;
+        border-color: #FF9800;
+      }
+    }
+  
+    .uploaded-file {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #F9FAFB;
+      border-radius: 8px;
+      margin-top: 12px;
+  
+      ion-icon:first-child {
+        font-size: 24px;
+        color: #FF9800;
+      }
+  
+      .file-name {
+        flex: 1;
+        font-size: 14px;
+        color: #1F2937;
+        font-weight: 500;
+      }
+  
+      ion-icon:last-child {
+        font-size: 24px;
+        color: #6B7280;
+        cursor: pointer;
+      }
+    }
+  }
+  
+  // Attach Files Card
+  // .attach-card {
+  //   padding: 24px;
+  // }
+  
+  // .attach-title {
+  //   font-size: 14px;
+  //   font-weight: 400;
+  //   color: #222222;
+  //   margin: 0 0 20px 0;
+  // }
+  
+  // .upload-area {
+  //   border: 1px dashed #D8D8D8;
+  //   border-radius: 8px;
+  //   padding: 9px 9px;
+  //   // text-align: center;
+  //   cursor: pointer;
+  //   transition: all 0.3s ease;
+  
+  //   &:hover {
+  //     border-color: #FF9500;
+  //     background: #FFF9F0;
+  //   }
+  // }
+  
+  // .upload-icon {
+  //   font-size: 30px;
+  //   color: #797979;
+  //   // margin-bottom: 12px;
+  // }
+  
+  // .upload-text {
+  //   font-size: 11px;
+  //   font-weight: 400;
+  //   color: #797979;
+  //   margin: 0;
+  // }
+  
+  // // Uploaded Files
+  // .uploaded-files {
+  //   margin-top: 16px;
+  // }
+  
+  // .file-item {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 12px;
+  //   padding: 12px;
+  //   background: #f5f5f5;
+  //   border-radius: 8px;
+  //   margin-bottom: 8px;
+  
+  //   .file-icon {
+  //     font-size: 24px;
+  //     color: #2196F3;
+  //   }
+  
+  //   .file-name {
+  //     flex: 1;
+  //     font-size: 10px;
+  //     color: #333;
+  //   }
+  
+  //   .remove-icon {
+  //     font-size: 20px;
+  //     color: #F44336;
+  //     cursor: pointer;
+  //   }
+  // }
+  
+  // Submit Button
+  .submit-btn {
+    --background: #FF9500;
+    --background-activated: #e68600;
+    --background-hover: #e68600;
+    --border-radius: 12px;
+    height: 56px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: none;
+    margin-top: 8px;
+    --box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+  
+    &[disabled] {
+      --background: #cccccc;
+      --box-shadow: none;
+    }
+  }
+  
+  // Bottom Spacing
+  .bottom-spacing {
+    height: 20px;
+  }
+  
+  // Responsive Design
+  @media (max-width: 375px) {
+    .ticket-form {
+      padding: 16px;
+    }
+  
+    .form-card {
+      padding: 20px;
+    }
+  
+    .header-title {
+      font-size: 20px;
+    }
+  }
+
+  .receipt-preview {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
+  }

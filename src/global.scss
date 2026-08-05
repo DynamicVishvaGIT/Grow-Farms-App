@@ -34,4 +34,36 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+// @import "@ionic/angular/css/palettes/dark.system.css";
+
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+
+// body {
+//   font-family: 'Roboto', sans-serif;
+// }
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.toast-error {
+  --background: var(--ion-color-danger) !important;
+  --color: white;
+}
+  
+.toast-success {
+  --background: var(--ion-color-success) !important;
+  --color: white;
+}
+// FOR MANDETORY FIELD
+.required:after {
+  content:" *";
+  color: red;
+}
+
+ion-content {
+  --background: #f5f5f5 !important;
+  // --offset-top: 0 !important;
+  // --offset-bottom: 0 !important;
+}

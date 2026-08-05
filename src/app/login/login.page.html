@@ -1,0 +1,50 @@
+<ion-content [fullscreen]="true" class="login-type-content">
+  <div class="content-wrapper">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <img src="assets/images/logo.png" alt="Grow Farms" class="logo">
+    </div>
+
+    <!-- Title -->
+    <div class="title-section">
+      <h1>Select Login Type</h1>
+    </div>
+
+    <!-- Login Options -->
+    <div class="login-options">
+      <!-- Investor Login Card -->
+      <ion-card class="login-card" >
+        <ion-card-content>
+          <div class="card-inner">
+            <div class="icon-wrapper">
+              <!-- <ion-icon name="person-circle-outline" class="user-icon investor-icon"></ion-icon>
+              <ion-icon name="cash-outline" class="badge-icon"></ion-icon> -->
+              <img src="assets/images/investor_login.png" alt="Grow Farms" class="investor_login_icon">
+            </div>
+            <div class="card-text">
+              <h2>Login as a Investor</h2>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- End User Login Card -->
+      <ion-card class="login-card" (click)="navigateToLoginByType()">
+        <ion-card-content>
+          <div class="card-inner">
+            <div class="icon-wrapper">
+              <img src="assets/images/user_login.png" alt="Grow Farms" class="end_user_login_icon">
+              <!-- <ion-icon name="person-outline" class="user-icon"></ion-icon> -->
+            </div>
+            <div class="card-text align">
+              <h2>Login as a End User</h2>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Background Image -->
+    <div class="background-image"></div>
+  </div>
+</ion-content>

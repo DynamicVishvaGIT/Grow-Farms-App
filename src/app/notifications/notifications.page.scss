@@ -1,0 +1,328 @@
+// Variables
+$primary-color: #FF9800;
+$high-priority: #EF4444;
+$medium-priority: #F59E0B;
+$low-priority: #3B82F6;
+$success-color: #10B981;
+$text-dark: #1F2937;
+$text-light: #6B7280;
+$text-lighter: #9CA3AF;
+$bg-light: #F9FAFB;
+$bg-gray: #F3F4F6;
+$border-color: #E5E7EB;
+
+// Header
+ion-header {
+  ion-toolbar {
+    --background: #ffffff;
+    --border-width: 0;
+    --min-height: 60px;
+    padding-top: 8px;
+
+    ion-buttons {
+      ion-back-button {
+        --color: $text-dark;
+        --icon-font-size: 24px;
+        font-weight: 600;
+      }
+    }
+
+    ion-title {
+      padding: 0;
+
+      .header-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .unread-count {
+            font-size: 14px;
+            color: #00A951;
+            margin: 2px 0 0 0;
+            font-weight: 400;
+        }
+      }
+    }
+
+    .mark-read-btn {
+        background: #FFFFFF;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        padding: 8px 16px;
+        font-size: 10px;
+        font-weight: 500;
+        color: #000000;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+      &:active {
+        background: $bg-light;
+      }
+    }
+  }
+}
+
+// Main Content
+ion-content {
+  --background: #F4F6F8;
+
+  .notifications-container {
+    padding: 16px;
+
+    .notification-card {
+      background: white;
+      border-radius: 3px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+
+      &.unread {
+        background: white;
+        // border-left: 4px solid $primary-color;
+      }
+
+      &.read {
+        background: #E9E9E9;
+        // opacity: 0.7;
+      }
+
+      .notification-header {
+        display: flex;
+        align-items: flex-start;
+        // gap: 12px;
+        // margin-bottom: 12px;
+
+        .notification-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-top: -9px;
+
+          ion-icon {
+            font-size: 24px;
+            // color: #FF1010;
+          }
+
+          &.icon-payment {
+            // background: $high-priority;
+            color: #FF1010;
+          }
+
+          &.icon-receipt {
+            // background: $success-color;
+            color: #00A951;
+          }
+
+          &.icon-support {
+            // background: $low-priority;
+            color: #1D9DE2;
+          }
+
+          &.icon-document {
+            background: $medium-priority;
+          }
+        }
+
+        .notification-title-wrapper {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+
+          .notification-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin: 0;
+          }
+
+          .notification-priority {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 2px;
+
+            &.priority-high {
+              background: #FFF2F2;
+              color: #FF1010;
+            }
+
+            &.priority-medium {
+                background: #FFF4E6;
+                color: #EE7F00;
+            }
+
+            &.priority-low {
+              background: #EFF6FF;
+              color: $low-priority;
+            }
+          }
+        }
+
+        .close-btn {
+          width: 15px;
+          height: 15px;
+          border-radius: 8px;
+          border: none;
+          background: transparent;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          flex-shrink: 0;
+          transition: all 0.2s ease;
+
+          ion-icon {
+            font-size: 20px;
+            color: #000000;
+          }
+
+          &:active {
+            background: $bg-light;
+          }
+        }
+      }
+
+      .notification-message {
+        font-size: 12px;
+        font-weight: 400;
+        color: #6B7280;
+        line-height: 1.5;
+        margin: -6px 0 12px 0;
+        padding-left: 44px;
+      }
+
+      .notification-action-btn {
+        border: none;
+        border-radius: 5px;
+        padding: 6px 20px;
+        font-size: 11px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left: 42px;
+        width: 131px;
+        height: 31px;
+
+        &.btn-payment {
+          background: #FF9D00;
+          color: white;
+
+          &:active {
+            background: darken($primary-color, 10%);
+          }
+        }
+
+        &.btn-receipt {
+          background: $primary-color;
+          color: white;
+
+          &:active {
+            background: darken($primary-color, 10%);
+          }
+        }
+
+        &.btn-support {
+          background: white;
+          color: $text-dark;
+          border: 1px solid $border-color;
+
+          &:active {
+            background: $bg-light;
+          }
+        }
+
+        &.btn-document {
+          background: $primary-color;
+          color: white;
+
+          &:active {
+            background: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+
+      ion-icon {
+        font-size: 80px;
+        color: $text-lighter;
+        margin-bottom: 16px;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: $text-dark;
+        margin: 0 0 8px 0;
+      }
+
+      p {
+        font-size: 14px;
+        color: $text-light;
+        margin: 0;
+      }
+    }
+  }
+
+  .bottom-spacing {
+    height: 40px;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 375px) {
+  ion-header {
+    ion-toolbar {
+      ion-title {
+        .header-content {
+          .page-title {
+            font-size: 22px;
+          }
+        }
+      }
+
+      .mark-read-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+    }
+  }
+
+  ion-content {
+    .notifications-container {
+      .notification-card {
+        .notification-message {
+          padding-left: 0;
+        }
+
+        .notification-action-btn {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

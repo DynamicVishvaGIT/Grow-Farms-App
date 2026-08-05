@@ -1,0 +1,537 @@
+$primary-color: #FF9D00;
+$paid-color: #00A951;
+$pending-color: #EE7F00;
+$under-review-color: #7500F3;
+$overdue-color: #FF1010;
+$text-dark: #000000;
+$text-light: #6B7280;
+$bg-light: #F9FAFB;
+$border-color: #E5E7EB;
+
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  // padding: 20px 16px 16px;
+  // background: #ffffff;
+  padding: 20px 20px 30px 20px;
+  background: #ffffff;
+  position: relative;
+  z-index: 10;
+  // min-height: 120px;
+  min-height: 85px;
+
+  .header-text {
+    flex: 1;
+
+    .page-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 4px 0;
+    }
+
+    .page-subtitle {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text-dark;
+        margin: 0;
+    }
+  }
+
+  .notification-icon {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 26px;
+      color: $text-dark;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      background-color: $overdue-color;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+  }
+}
+
+.action-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 16px;
+  background: #ffffff;
+
+  .property-select {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    cursor: pointer;
+
+    .property-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    ion-icon {
+      font-size: 20px;
+      color: $text-light;
+    }
+  }
+
+  .property-select1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    cursor: pointer;
+
+    .property-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    ion-icon {
+      font-size: 20px;
+      color: #666666;
+    }
+  }
+
+  .mark-payment-btn {
+    --background: #FF9D00;
+    --border-radius: 5px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --box-shadow: none;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+}
+
+.filter-chips {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 20px;
+  // overflow-x: auto; 
+  // -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden; // 👈 prevent vertical scroll
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth; // 👈 smooth scroll
+  background: #ffffff;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-chip {
+    flex: 0 0 auto; // 👈 IMPORTANT: prevent shrinking
+    white-space: nowrap; // 👈 keep text in one line
+    --background: white;
+    height: 36px;
+    border: 1px solid $border-color;
+    border-radius: 20px;
+    margin: 0;
+    padding: 0 16px;
+
+    ion-label {
+      font-size: 14px;
+      font-weight: 400;
+      color: #1E1E1E;
+      margin: 0;
+    }
+
+    &.active {
+        --background: #E5FFF2;
+        border-color: #00A951;
+
+      ion-label {
+        color: $paid-color;
+      }
+    }
+  }
+}
+
+// Main Content
+ion-content {
+    --background: #F4F6F8;
+  
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 0 16px 24px;
+      background: #ffffff;
+      overflow-y: auto;
+  
+      .stat-card {
+        background: white;
+        border-radius: 10px;
+        padding: 10px 12px;
+        text-align: center;
+        // width: 84px;
+        width: 109px;
+        height: 58px;
+  
+        .stat-label {
+            font-size: 12px;
+            font-weight: 400;
+            color: #222222;
+            margin: 0 0 8px 0;
+        }
+  
+        .stat-value {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 0;
+        }
+  
+        &.paid-card {
+          background: #ECFDF5;
+  
+          .stat-value {
+            color: #00A951;
+          }
+        }
+  
+        &.pending-card {
+          background: #FFF4E6;
+  
+          .stat-value {
+            color: $pending-color;
+          }
+        }
+
+        &.under_review-card {
+          background: #FAF5FF;
+  
+          .stat-value {
+            color: $under_review-color;
+          }
+        }
+  
+        &.overdue-card {
+          background: #FFF0F0;
+  
+          .stat-value {
+            color: $overdue-color;
+          }
+        }
+      }
+    }
+  
+    .slabs-container {
+      padding: 21px 16px;
+  
+      .slab-card {
+        background: #FFFFFF;
+        border-radius: 3px;
+        padding: 16px;
+        margin-bottom: 12px;
+        border-left: 2px solid transparent;
+        // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  
+        &.slab-Paid {
+          border-left-color: $paid-color;
+        }
+  
+        &.slab-Pending {
+          border-left-color: $pending-color;
+        }
+        &.slab-Under_review {
+          border-left-color: $under_review-color;
+        }
+  
+        &.slab-Overdue {
+          border-left-color: $overdue-color;
+        }
+  
+        .slab-header {
+          display: flex;
+          // justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+          // margin-bottom: 16px;
+          padding-bottom: 10px;
+          border-bottom: 1px dotted #efe9e9;
+  
+        .slab-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+
+            ion-icon {
+            font-size: 14px;
+            color: white;
+            }
+
+            &.icon-Paid {
+            background: $paid-color;
+            }
+
+            &.icon-Pending {
+            background: $pending-color;
+            }
+            &.icon-Under_review {
+              background: $under-review-color;
+            }
+
+            &.icon-Overdue {
+            background: $overdue-color;
+            }
+        }
+  
+        .slab-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: $text-dark;
+            // margin: 0 0 4px 0;
+            margin:0;
+            flex-shrink: 0;
+            }
+
+            .slab-status {
+              display: inline-block;
+              font-size: 12px;
+              font-weight: 500;
+              padding: 3px 10px;
+              border-radius: 2px;
+              flex-shrink: 0;
+              // margin-left: auto;
+
+            &.status-Paid {
+                background: #ECFDF5;
+                color: $paid-color;
+            }
+
+            &.status-Pending {
+                background: #FFF7ED;
+                color: $pending-color;
+            }
+
+            &.status-Under_review {
+              background: #FAF5FF;
+              color: $under-review-color;
+          }
+
+            &.status-Overdue {
+                background: #FEF2F2;
+                color: $overdue-color;
+            }
+            }
+  
+          .slab-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: $text-dark;
+            margin-left: auto;
+            flex-shrink: 0;
+          }
+        }
+
+        .slab-dates {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+        
+          .date-item {
+            flex: 1;
+        
+            .date-label {
+              font-size: 12px;
+              font-weight: 400;
+              color: #6B7280;
+              margin: 0 0 4px 0;
+            }
+        
+            .date-value {
+              font-size: 16px;
+              font-weight: 500;
+              color: #1E1E1E;
+              margin: 0;
+              white-space: nowrap;
+            }
+          }
+        
+          /* ✅ Only right align when it's the paid date */
+          .date-item.paid {
+            text-align: right;
+          }
+        
+          .date-divider {
+            width: 1px;
+            height: 32px;
+            background: $border-color;
+            margin: 0 12px;
+          }
+        }
+  
+        // .slab-dates {
+        //   display: flex;
+        //   align-items: center;
+        //   justify-content: space-between; // ✅ distribute properly
+        //   gap: 12px; // ✅ small responsive gap
+  
+        //   .date-item {
+        //     flex: 1;
+        //     min-width: 0; // ✅ IMPORTANT (prevents overflow issues)
+  
+        //     .date-label {
+        //       font-size: 10px;
+        //       font-weight: 400;
+        //       color: #6B7280;
+        //       margin: 0 0 4px 0;
+  
+        //       &.paid-label {
+        //         color: #6B7280;
+        //       }
+        //     }
+  
+        //     .date-value {
+        //       font-size: 14px;
+        //       font-weight: 500;
+        //       color: #1E1E1E;
+        //       margin: 0;
+
+        //       white-space: nowrap; // ✅ prevent line break
+        //       overflow: hidden;
+        //       text-overflow: ellipsis;
+  
+        //       &.paid-value {
+        //         color: $paid-color;
+        //       }
+        //     }
+        //   }
+  
+        //   .date-divider {
+        //     width: 1px;
+        //     height: 32px;
+        //     background: $border-color;
+        //   }
+        // }
+      }
+      .empty-state {
+        text-align: center;
+        color: #999999;
+      
+        .empty-icon {
+          font-size: 64px;
+          color: #cccccc;
+          margin-bottom: 16px;
+        }
+      
+        p {
+          font-size: 15px;
+          margin: 0;
+        }
+      }
+    }
+  
+    .bottom-spacing {
+      height: 80px;
+    }
+  }
+
+  .slab-no{
+    font-size: 12px;
+  }
+  
+  // Tab Bar
+  .custom-tab-bar {
+    --background: white;
+    border-top: 1px solid $border-color;
+    height: 65px;
+    padding-bottom: env(safe-area-inset-bottom);
+  
+    ion-tab-button {
+      --color: $text-light;
+      --color-selected: $primary-color;
+      font-size: 12px;
+  
+      ion-icon {
+        font-size: 24px;
+        margin-bottom: 4px;
+      }
+  
+      ion-label {
+        font-size: 11px;
+        font-weight: 500;
+      }
+  
+      &.tab-selected {
+        --color: $primary-color;
+  
+        ion-icon {
+          color: $primary-color;
+        }
+  
+        ion-label {
+          color: $primary-color;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 375px) {
+    ion-content {
+      .header-section {
+        .header-text {
+          .page-title {
+            font-size: 26px;
+          }
+        }
+      }
+  
+      .stats-cards {
+        .stat-card {
+          padding: 8px 10px;
+  
+          .stat-value {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slab-dates {
+      gap: 8px;
+  
+      .date-value {
+        font-size: 12px; // smaller text for mobile
+      }
+    }
+  }

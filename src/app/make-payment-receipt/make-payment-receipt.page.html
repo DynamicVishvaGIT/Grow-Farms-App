@@ -1,0 +1,193 @@
+<!-- <ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/payment-slabs" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header-content">
+        <h1 class="page-title">Mark Payment</h1>
+        <p class="page-subtitle">Submit payment details for verification</p>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <div class="notification-icon" (click)="onNotificationClick()">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <span class="notification-badge" *ngIf="notificationCount > 0"></span>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- Header Section -->
+  <div class="header-section">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/payment-slabs" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <div class="header-text">
+      <h1 class="page-title">Mark Payment</h1>
+      <p class="page-subtitle">Submit payment details for verification</p>
+    </div>
+    <div class="notification-icon" (click)="onNotificationClick()">
+      <img src="assets/images/notification.svg" alt="Notification Icon" *ngIf="notificationCount > 0"/>
+      <img src="assets/images/notification1.svg" alt="Notification Icon" *ngIf="notificationCount == 0"/>
+      <!-- <ion-icon name="notifications-outline"></ion-icon>
+      <span class="notification-badge" *ngIf="notificationCount > 0"></span> -->
+    </div>
+  </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    <!-- Payment Form Card -->
+    <div class="form-card">
+      <div class="property-select" (click)="selectProperty()">
+        <span class="property-name">{{ selectedProperty }}</span>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+      <div class="divider"></div>
+      <!-- Select Payment Slab -->
+      <div class="input-group" (click)="selectPaymentSlab()">
+        <ion-label class="required">Select Payment Slab</ion-label>
+        <ion-item class="custom-input" lines="none">
+          <ion-input
+            type="text"
+            placeholder="Choose Payment Slab"
+            [(ngModel)]="payment_slab_name"
+            readonly
+            name="slab">
+          </ion-input>
+          <ion-icon name="chevron-down-outline" slot="end" class="dropdown-icon"></ion-icon>
+        </ion-item>
+      </div>
+
+      <!-- Payment Details Section -->
+      <div class="section-header">
+        <h2 class="section-title">Payment Details</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="input-group" (click)="selectPaymentMethod()">
+        <ion-label class="required">Payment Method</ion-label>
+        <ion-item class="custom-input" lines="none" >
+          <ion-input
+            type="text"
+            placeholder="Select Payment Method"
+            [(ngModel)]="paymentJson.payment_method"
+            readonly
+            name="method">
+          </ion-input>
+          <ion-icon name="chevron-down-outline" slot="end" class="dropdown-icon"></ion-icon>
+        </ion-item>
+      </div>
+
+      <!-- Payment Date -->
+      <div class="input-group">
+        <ion-label class="required">Payment Date</ion-label>
+        <ion-item class="custom-input" lines="none">
+          <ion-input
+            type="date"
+            placeholder="DD/MM/YYYY"
+            [(ngModel)]="paymentJson.payment_date"
+            name="date">
+          </ion-input>
+          <ion-icon name="calendar-outline" slot="end" class="input-icon"></ion-icon>
+        </ion-item>
+      </div>
+
+      <!--(click)="openDatePicker()"-->
+
+      <!-- Amount Paid -->
+      <div class="input-group">
+        <ion-label class="required">Amount Paid</ion-label>
+        <ion-item class="custom-input" lines="none">
+          <ion-input
+            type="text"
+            placeholder="Enter Amount"
+            [(ngModel)]="paymentJson.amount_paid"
+            inputmode="numeric"
+            name="amount_paid" disabled="true">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Transaction ID -->
+      <div class="input-group">
+        <ion-label class="required">Transaction ID/ Reference Number</ion-label>
+        <ion-item class="custom-input" lines="none">
+          <ion-input
+            type="text"
+            placeholder="Enter Transaction ID"
+            [(ngModel)]="paymentJson.transaction_id"
+            name="transactionId">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Note -->
+      <div class="input-group">
+        <ion-label>Note</ion-label>
+        <ion-item class="custom-textarea" lines="none">
+          <ion-textarea
+            placeholder="Enter additional Note"
+            [(ngModel)]="paymentJson.note"
+            rows="4"
+            name="note">
+          </ion-textarea>
+        </ion-item>
+      </div>
+    </div>
+
+    <!-- Upload Receipt Card -->
+    <!-- <div class="upload-card">
+      <h3 class="upload-title">Upload Payment Receipt</h3>
+      <div class="upload-divider"></div>
+      
+      <div class="upload-area" (click)="uploadReceipt()">
+        <ion-icon name="add-outline"></ion-icon>
+        <span class="upload-text">Upload receipt (Photo or PDF)</span>
+      </div>
+
+      <div class="uploaded-file" *ngIf="uploadedFile">
+        <ion-icon name="document-outline"></ion-icon>
+        <span class="file-name">{{ uploadedFile.name }}</span>
+        <ion-icon name="close-circle" (click)="removeFile()"></ion-icon>
+      </div>
+    </div> -->
+
+    <!-- Upload Receipt Card -->
+    <div class="upload-card">
+      <h3 class="upload-title required">Upload Payment Receipt</h3>
+      <!-- <div class="upload-divider"></div> -->
+      
+      <div class="upload-area" (click)="uploadReceipt()">
+        <div class="upload-content">
+          <ion-icon name="add-outline"></ion-icon>
+          <span class="upload-text">Upload receipt (Photo)</span>
+        </div>
+      </div>
+
+      <!-- Uploaded File Preview -->
+      <div class="uploaded-file" *ngIf="uploadedFile">
+        <!-- <ion-icon name="document-outline"></ion-icon> -->
+        <img [src]="uploadedFilePreview" class="receipt-preview" />
+        <span class="file-name">{{ uploadedFile?.name }}</span>
+        <ion-icon name="close-circle" (click)="removeFile()"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <ion-button 
+      class="submit-btn" 
+      expand="block"
+      (click)="submitPayment()">
+      Submit Payment
+    </ion-button>
+
+    <!-- Bottom Spacing -->
+    <div class="bottom-spacing"></div>
+  </div>
+</ion-content>

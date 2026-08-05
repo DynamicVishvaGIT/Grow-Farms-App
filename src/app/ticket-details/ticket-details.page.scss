@@ -1,0 +1,239 @@
+ion-content{
+    --background:#F4F6F8;
+  }
+  
+  .header-section{
+  
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+  
+    padding:20px 20px 12px 4px;
+  
+    background:#fff;
+  
+    .header-text{
+  
+      flex:1;
+  
+      .page-title{
+  
+        font-size:18px;
+        font-weight:700;
+        margin:0 0 8px;
+  
+      }
+  
+    }
+  
+    ion-icon{
+  
+      font-size:24px;
+  
+    }
+  
+  }
+  
+  .status-badge{
+  
+    display:inline-block;
+  
+    padding:6px 12px;
+  
+    border-radius:6px;
+  
+    font-size:12px;
+  
+    font-weight:600;
+  
+  }
+  
+  .status-badge.open{
+  
+    background:#E3F2FD;
+  
+    color:#2196F3;
+  
+  }
+  
+  .status-badge.in_process{
+  
+    background:#FFF8E1;
+  
+    color:#FF9800;
+  
+  }
+  
+  .status-badge.closed{
+  
+    background:#E8F5E9;
+  
+    color:#00A951;
+  
+  }
+  
+  .info-card{
+  
+    margin:18px;
+  
+    background:#fff;
+  
+    border-radius:14px;
+  
+    padding:18px;
+  
+  }
+  
+  .card-title{
+  
+    margin:0 0 18px;
+  
+    font-size:18px;
+  
+    font-weight:700;
+  
+  }
+  
+  .info-row{
+  
+    display:flex;
+  
+    justify-content:space-between;
+  
+    align-items:flex-start;
+  
+    padding:14px 0;
+  
+    border-bottom:1px solid #F1F1F1;
+  
+    gap:20px;
+  
+    &:last-child{
+  
+      border:none;
+  
+    }
+  
+    span{
+  
+      color:#7B7B7B;
+  
+      font-size:14px;
+  
+    }
+  
+    strong{
+  
+      text-align:right;
+  
+      font-size:14px;
+  
+      color:#1E1E1E;
+  
+      font-weight:600;
+  
+    }
+  
+  }
+  
+  .status-text{
+  
+    text-transform:capitalize;
+  
+  }
+  
+  .status-text.open{
+  
+    color:#2196F3;
+  
+  }
+  
+  .status-text.in_process{
+  
+    color:#FF9800;
+  
+  }
+  
+  .status-text.closed{
+  
+    color:#00A951;
+  
+  }
+  
+  .contact-item{
+  
+    display:flex;
+  
+    align-items:center;
+  
+    gap:14px;
+  
+    padding:14px 0;
+  
+    border-bottom:1px solid #F1F1F1;
+  
+    &:last-child{
+  
+      border:none;
+  
+    }
+  
+    ion-icon{
+  
+      width:42px;
+  
+      height:42px;
+  
+      background:#FFF4E6;
+  
+      color:#FF9800;
+  
+      border-radius:50%;
+  
+      padding:10px;
+  
+      font-size:20px;
+  
+    }
+  
+    p{
+  
+      margin:0;
+  
+      color:#888;
+  
+      font-size:13px;
+  
+    }
+  
+    h4{
+  
+      margin:4px 0 0;
+  
+      font-size:15px;
+  
+      font-weight:600;
+  
+      color:#111;
+  
+    }
+  
+  }
+  
+  .description{
+  
+    line-height:1.8;
+  
+    color:#444;
+  
+    font-size:14px;
+  
+  }
+  
+  .receipt-empty{
+  
+    color:#F44336;
+  
+    font-weight:600;
+  
+  }

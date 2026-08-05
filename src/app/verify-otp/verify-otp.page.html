@@ -1,0 +1,83 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>OTP Verification</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="content-wrapper">
+    <!-- Icon Section -->
+    <div class="logo-section">
+      <div class="logo-container">
+        <img src="assets/images/otp_logo.png" alt="Grow Farms" class="logo">
+      </div>
+      <!-- <h1 class="brand-text">ELMEASURE<sup>®</sup></h1> -->
+    </div>
+
+    <!-- Title -->
+    <h1 class="title">OTP Verification</h1>
+
+    <!-- Subtitle -->
+    <p class="subtitle">
+      Enter the OTP send to<br />
+      <span class="phone-number">+91 {{mobileNumber}}</span><br />
+      <span class="phone-number">{{receivedOTP}}</span>
+    </p>
+
+    <!-- OTP Input Fields -->
+    <div class="otp-container">
+      <input
+        type="tel"
+        maxlength="1"
+        class="otp-input"
+        [(ngModel)]="otp[0]"
+        #input0
+        (input)="onOtpInput($event, 0)"
+        (keydown)="onKeyDown($event, 0)"
+      />
+      <input
+        type="tel"
+        maxlength="1"
+        class="otp-input"
+        [(ngModel)]="otp[1]"
+        #input1
+        (input)="onOtpInput($event, 1)"
+        (keydown)="onKeyDown($event, 1)"
+      />
+      <input
+        type="tel"
+        maxlength="1"
+        class="otp-input"
+        [(ngModel)]="otp[2]"
+        #input2
+        (input)="onOtpInput($event, 2)"
+        (keydown)="onKeyDown($event, 2)"
+      />
+      <input
+        type="tel"
+        maxlength="1"
+        class="otp-input"
+        [(ngModel)]="otp[3]"
+        #input3
+        (input)="onOtpInput($event, 3)"
+        (keydown)="onKeyDown($event, 3)"
+      />
+    </div>
+
+    <!-- Resend OTP -->
+    <p class="resend-text">
+      <!-- <span style="color:white;font-size: smaller;" *ngIf="timer > 0">Resend OTP in {{timer}}s...</span> -->
+      Didn't you receive the OTP? <span class="resend-link" (click)="timer == 0 && canResend?onClickResend():''">{{ timer > 0 ? 'Resend OTP in ' + timer + 's...' : 'Resend OTP' }}</span>
+    </p>
+
+    <!-- Verify Button -->
+    <ion-button expand="block" class="verify-button" (click)="verifyOTP()">
+      Verify & Login
+    </ion-button>
+
+    <!-- Change Number Link -->
+    <!-- <p class="change-number" (click)="changeNumber()">
+      Change Mobile Number
+    </p> -->
+  </div>
+</ion-content>

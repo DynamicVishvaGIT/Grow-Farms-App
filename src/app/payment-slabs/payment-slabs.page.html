@@ -1,0 +1,147 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="header-text">
+        <h1 class="page-title">Payment Slabs</h1>
+        <p class="page-subtitle">Track all payment schedules</p>
+      </div>
+      <div class="notification-icon" (click)="goToPaymentReceipt()">
+        <ion-icon name="receipt-outline"></ion-icon>
+      </div>
+      <div class="notification-icon" (click)="onNotificationClick()">
+        <img src="assets/images/notification.svg" alt="Notification Icon" *ngIf="notificationCount > 0"/>
+        <img src="assets/images/notification1.svg" alt="Notification Icon" *ngIf="notificationCount == 0"/>
+        <!-- <ion-icon name="notifications-outline"></ion-icon>
+        <span class="notification-badge" *ngIf="notificationCount > 0"></span> -->
+      </div>
+    </div>
+    <!-- Property Selection and Mark Payment Button -->
+    <div class="action-section">
+      <div class="property-select1" (click)="selectProperty()" >
+        <span class="property-name">{{ selectedProperty }}</span>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+      <ion-button class="mark-payment-btn" (click)="goToMakePayment()"> <!--(click)="onMarkPayment()"-->
+        Mark Payment
+      </ion-button>
+    </div>
+    <!-- Filter Chips -->
+    <div class="filter-chips">
+      <ion-chip 
+        [class.active]="selectedFilter === 'All'" 
+        (click)="get_payment_slabs('All')"
+        class="filter-chip">
+        <ion-label>All</ion-label>
+      </ion-chip>
+      <ion-chip 
+        [class.active]="selectedFilter === 'Paid'" 
+        (click)="get_payment_slabs('Paid')"
+        class="filter-chip">
+        <ion-label>Paid</ion-label>
+      </ion-chip>
+      <ion-chip 
+        [class.active]="selectedFilter === 'Pending'" 
+        (click)="get_payment_slabs('Pending')"
+        class="filter-chip">
+        <ion-label>Pending</ion-label>
+      </ion-chip>
+      <ion-chip 
+        [class.active]="selectedFilter === 'Under_review'" 
+        (click)="get_payment_slabs('Under_review')"
+        class="filter-chip">
+        <ion-label>Under Review</ion-label>
+      </ion-chip>
+      <ion-chip 
+        [class.active]="selectedFilter === 'Overdue'" 
+        (click)="get_payment_slabs('Overdue')"
+        class="filter-chip">
+        <ion-label>Overdue</ion-label>
+      </ion-chip>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Stats Cards -->
+  <div class="stats-cards">
+    <div class="stat-card paid-card">
+      <p class="stat-label">Paid</p>
+      <h3 class="stat-value">{{ summaryData?.paid }}</h3>
+    </div>
+    <div class="stat-card pending-card">
+      <p class="stat-label">Pending</p>
+      <h3 class="stat-value">{{ summaryData?.pending }}</h3>
+    </div>
+    <div class="stat-card under_review-card">
+      <p class="stat-label">Under Review</p>
+      <h3 class="stat-value">{{ summaryData?.Under_review }}</h3>
+    </div>
+    <div class="stat-card overdue-card">
+      <p class="stat-label">Overdue</p>
+      <h3 class="stat-value">{{ summaryData?.overdue }}</h3>
+    </div>
+  </div>
+
+  <!-- Payment Slabs List -->
+  <div class="slabs-container" *ngIf="dataLoaded && filteredSlabs.length>0">
+    <div class="slab-card" *ngFor="let slab of filteredSlabs" [ngClass]="'slab-' + slab.status">
+      <!-- Slab Header -->
+      <div class="slab-header" >
+        <!-- <div class="slab-left"> -->
+          <div class="slab-icon" [ngClass]="'icon-' + slab.status">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </div>
+          <!-- <div class="slab-info"> -->
+            <h3 class="slab-title">Slab - {{ slab.slab_no }}</h3>
+            <span class="slab-status" [ngClass]="'status-' + slab.status">
+              {{ slab.status }}
+            </span>
+            <!-- <p class="slab-no">Slab - {{ slab.slab_no }}</p><br> -->
+          <!-- </div> -->
+        <!-- </div> -->
+        <div class="slab-amount">₹{{ slab.amount | number }}</div>
+      </div>
+      <!-- <div class="slab-header" >
+        <p class="slab-no">Slab - {{ slab.slab_no }}</p>
+        <div class="slab-amount">₹{{ slab.amount | number }}</div>
+      </div> -->
+
+      <!-- Slab Dates -->
+      <div class="slab-dates">
+        <div class="date-item">
+          <p class="date-label">Due Date</p>
+          <p class="date-value">{{ slab.due_date }}</p>
+        </div>
+        <div class="date-divider" *ngIf="slab.paid_date"></div>
+        <div class="date-item paid" *ngIf="slab.paid_date">
+          <p class="date-label paid-label">Paid Date</p>
+          <p class="date-value paid-value">{{ slab.paid_date }}</p>
+        </div>
+      </div>
+      <!-- <div class="slab-dates">
+        <div class="date-item">
+          <p class="date-label">Due Date</p>
+          <p class="date-value">{{ slab.due_date }}</p>
+        </div>
+        <div class="date-divider" *ngIf="slab.paid_date"></div>
+        <div class="date-item" *ngIf="slab.paid_date">
+          <p class="date-label paid-label">Paid Date</p>
+          <p class="date-value paid-value">{{ slab.paid_date }}</p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="slabs-container" *ngIf="dataLoaded && filteredSlabs.length==0">
+    <div class="empty-state">
+      <ion-icon name="document-text-outline" class="empty-icon"></ion-icon>
+      <p>Payment information will be available here</p>
+    </div>
+  </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
+</ion-content>

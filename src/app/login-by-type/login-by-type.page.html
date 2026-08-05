@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="login-container">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-container">
+        <img src="assets/images/otp_logo.png" alt="Grow Farms" class="logo">
+      </div>
+      <!-- <h1 class="brand-text">ELMEASURE<sup>®</sup></h1> -->
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-form">
+      <div class="login-header">
+        <h2>OTP Verification</h2>
+        <p>We will send you one-time password to you mobile number</p>
+      </div>
+
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <!-- Mobile Number Input -->
+        <div class="input-group">
+          <ion-label>Enter Mobile number</ion-label>
+          <ion-item class="custom-input" lines="none">
+            <ion-icon name="call-outline" slot="start" class="input-icon"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="Enter Your Mobile number"
+              inputmode="numeric" maxLength="10"
+              [(ngModel)]="loginData.mobile_no"
+              name="mobile_no"
+              required ><!--inputmode="numeric" maxLength="10"-->
+            </ion-input>
+          </ion-item>
+        </div>
+        <!-- Login Button -->
+        <ion-button 
+          expand="block"
+          type="submit" 
+          class="login-btn"> <!--[disabled]="!loginForm.valid"-->
+          Login
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

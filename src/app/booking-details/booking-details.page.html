@@ -1,0 +1,268 @@
+<!-- <ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/my-bookings" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <div class="header-content">
+      <div class="reference-code">
+        {{ myPersonalDetails?.reference_code }}
+      </div>
+
+      <div
+        class="status-badge"
+        [ngClass]="myPersonalDetails?.status=='Document Verification' ? 'verification' :
+                   myPersonalDetails?.status=='Pending Payment' ? 'pending' : 'confirmed'">
+        {{ myPersonalDetails?.status }}
+      </div>
+    </div>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDownload()">
+        <ion-icon slot="icon-only" name="download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- Header Section -->
+    <div class="header-section">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/my-bookings" icon="chevron-back-outline"></ion-back-button>
+      </ion-buttons>
+      <div class="header-text">
+        <h1 class="page-title">{{ myPersonalDetails?.reference_code }}</h1>
+        <p class="status-badge" [ngClass]="myPersonalDetails?.status=='Document Verification' ? 'verification' :
+        myPersonalDetails?.status=='Pending Payment' ? 'pending' : 'confirmed'">{{ myPersonalDetails?.status }}</p>
+      </div>
+      <div class="notification-icon" (click)="onDownload()">
+        <ion-icon name="download-outline"></ion-icon>
+      </div>
+    </div>
+    <!-- Filter Chips -->
+    <div class="filter-chips">
+      <ion-chip 
+        [class.active]="selectedTab === 'details'" 
+        (click)="switchTab('details')"
+        class="filter-chip">
+        <ion-label>Details</ion-label>
+      </ion-chip>
+      <ion-chip 
+        [class.active]="selectedTab === 'docs'" 
+        (click)="switchTab('docs')"
+        class="filter-chip">
+        <ion-label>Docs</ion-label>
+      </ion-chip>
+      <ion-chip 
+        [class.active]="selectedTab === 'payment'" 
+        (click)="switchTab('payment')"
+        class="filter-chip">
+        <ion-label>Payment</ion-label>
+      </ion-chip>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- Status Badge -->
+  <!-- <div class="status-section">
+    <div class="status-badge" [ngClass]="myPersonalDetails?.status=='Document Verification'?'verification':myPersonalDetails?.status=='Pending Payment'?'pending':'confirmed'">
+      {{ myPersonalDetails?.status }}
+    </div>
+  </div> -->
+
+  <!-- Tabs -->
+  <!-- <div class="detail-tabs">
+    <div 
+      class="tab-chip" 
+      [class.active]="selectedTab === 'details'"
+      (click)="switchTab('details')">
+      <span>Details</span>
+    </div>
+    <div 
+      class="tab-chip" 
+      [class.active]="selectedTab === 'docs'"
+      (click)="switchTab('docs')">
+      <span>Docs</span>
+    </div>
+    <div 
+      class="tab-chip" 
+      [class.active]="selectedTab === 'payment'"
+      (click)="switchTab('payment')">
+      <span>Payment</span>
+    </div>
+  </div> -->
+
+  <!-- Details Tab Content -->
+  <div class="tab-content" *ngIf="selectedTab === 'details'">
+    <!-- Personal Information Card -->
+    <div class="info-card">
+      <h2 class="card-title">Personal Information</h2>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <p class="info-label">Full Name</p>
+          <p class="info-value">{{ myPersonalDetails?.customer_name }}</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Date of Birth</p>
+          <p class="info-value">{{ myPersonalDetails?.date_of_birth }}</p>
+        </div>
+      </div>
+
+      <div class="address-section">
+        <p class="info-label">Profession</p>
+        <p class="info-value">{{ myPersonalDetails?.profession }}</p>
+      </div>
+
+      <div class="address-section">
+        <p class="info-label">PAN</p>
+        <p class="info-value">{{ myPersonalDetails?.pan_number }}</p>
+      </div>
+
+      <!-- <div class="info-grid">
+        <div class="info-item">
+          <p class="info-label">Profession</p>
+          <p class="info-value">{{ myPersonalDetails?.profession }}</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">PAN</p>
+          <p class="info-value">{{ myPersonalDetails?.pan_number }}</p>
+        </div>
+      </div> -->
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <ion-icon name="mail" class="contact-icon"></ion-icon>
+          <span class="contact-text">{{ myPersonalDetails?.email }}</span>
+        </div>
+        <div class="contact-item">
+          <ion-icon name="call" class="contact-icon"></ion-icon>
+          <span class="contact-text">{{ myPersonalDetails?.phone }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address Card -->
+    <div class="info-card">
+      <h2 class="card-title">Address</h2>
+
+      <div class="address-section">
+        <p class="info-label">Full Address</p>
+        <p class="info-value address-text">{{ myPersonalDetails?.address_line_1 }}{{','+myPersonalDetails?.address_line_2}}</p>
+      </div>
+
+      <div class="address-section">
+        <p class="info-label">City:</p>
+        <p class="info-value">{{ myPersonalDetails?.city }}</p>
+      </div>
+    </div>
+
+    <!-- Land Details Card -->
+    <div class="info-card">
+      <h2 class="card-title">Land Details</h2>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <p class="info-label">Project</p>
+          <p class="info-value">{{ myPersonalDetails?.project }}</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Gat No.</p>
+          <p class="info-value">{{ myPersonalDetails?.survey_no }}</p>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <p class="info-label">Area</p>
+          <p class="info-value">{{ myPersonalDetails?.area_sqft }}</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Landmark</p>
+          <p class="info-value">{{ myPersonalDetails?.plot_landmark }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Docs Tab Content -->
+  <div class="tab-content" *ngIf="selectedTab === 'docs'">
+    <div class="documents-list">
+      <div class="document-card" *ngFor="let doc of myDoc" (click)="viewDocument(doc)">
+        <div class="doc-left">
+          <div class="doc-icon">
+            <ion-icon name="document-text-outline"></ion-icon>
+          </div>
+          <div class="doc-info">
+            <h3 class="doc-title">{{ doc.name }}</h3>
+            <p class="doc-date">Uploaded: {{ doc.uploaded_date }}</p>
+          </div>
+        </div>
+        <div class="doc-status" [ngClass]="doc.status">
+          {{ doc.status }}
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="myDoc.length==0">
+        <ion-icon name="document-text-outline" class="empty-icon"></ion-icon>
+        <p>Documents will be available here</p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="tab-content" *ngIf="selectedTab === 'docs'">
+    <div class="docs-container">
+      <div class="empty-state">
+        <ion-icon name="document-text-outline" class="empty-icon"></ion-icon>
+        <p>Documents will be available here</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Payment Tab Content -->
+  <div class="tab-content" *ngIf="selectedTab === 'payment'">
+    <div class="slabs-container" *ngIf="paymentSlabs.length>0">
+      <div class="slab-card" *ngFor="let slab of paymentSlabs" [ngClass]="'slab-' + slab.status">
+        <!-- Slab Header -->
+        <div class="slab-header" ><!--(click)="goToPaymentReceipt()"-->
+          <!-- <div class="slab-left"> -->
+            <div class="slab-icon" [ngClass]="'icon-' + slab.status">
+              <ion-icon name="checkmark-outline"></ion-icon>
+            </div>
+            <!-- <div class="slab-info"> -->
+              <h3 class="slab-title">Slab {{ slab.slab }}</h3>
+              <span class="slab-status" [ngClass]="'status-' + slab.status">
+                {{ slab.status }}
+              </span>
+            <!-- </div> -->
+          <!-- </div> -->
+          <div class="slab-amount">₹{{ slab.amount | number }}</div>
+        </div>
+  
+        <!-- Slab Dates -->
+        <div class="slab-dates">
+          <div class="date-item">
+            <p class="date-label">Due Date</p>
+            <p class="date-value">{{ slab.due_date }}</p>
+          </div>
+          <div class="date-divider" *ngIf="slab.paid_date"></div>
+          <div class="date-item" *ngIf="slab.paid_date">
+            <p class="date-label paid-label">Paid Date</p>
+            <p class="date-value paid-value">{{ slab.paid_date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="payment-container" *ngIf="paymentSlabs.length==0">
+      <div class="empty-state">
+        <ion-icon name="wallet-outline" class="empty-icon"></ion-icon>
+        <p>Payment information will be available here</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacing"></div>
+</ion-content>

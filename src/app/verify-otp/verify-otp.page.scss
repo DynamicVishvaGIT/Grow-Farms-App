@@ -1,0 +1,238 @@
+ion-content {
+    --background: #f4f6f8;
+  }
+
+  .logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    
+    .logo-container {
+      margin-bottom: 10px;
+      
+      .logo{
+        width: 220px;
+      }
+    }
+}
+  
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px;
+  }
+  
+  // Icon Container with Animation
+  .icon-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+  
+  .phone-illustration {
+    position: relative;
+    width: 120px;
+    height: 180px;
+    z-index: 2;
+  }
+  
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e8ecf8 0%, #d4ddf4 100%);
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 6px;
+      background: white;
+      border-radius: 3px;
+    }
+  
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 30px;
+      background: #4a7cff;
+      border-radius: 0 0 10px 10px;
+    }
+  }
+  
+  .checkmark-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+    z-index: 3;
+  }
+  
+  .checkmark-icon {
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .ripple-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px dashed #10b981;
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+  
+  .ripple-1 {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .ripple-2 {
+    width: 220px;
+    height: 220px;
+  }
+  
+  // Title
+  .title {
+    font-size: 20px;
+    font-family: Montserrat;
+    font-weight: 700;
+    color: #3A3A3A;
+    margin: 0 0 15px 0;
+    text-align: center;
+  }
+  
+  // Subtitle
+  .subtitle {
+    font-size: 15px;
+    color: #3A3A3A;
+    text-align: center;
+    margin: 0 0 0 0;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  
+  .phone-number {
+    color: #3A3A3A;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  
+  // OTP Input Container
+  .otp-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: center;
+  }
+  
+  .otp-input {
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2d3748;
+    border: none;
+    border-bottom: 3px solid #cbd5e0;
+    background: transparent;
+    outline: none;
+    transition: all 0.3s ease;
+  
+    &:focus {
+      border-bottom-color: #FF9D00;
+    }
+  
+    &:not(:placeholder-shown) {
+      border-bottom-color: #FF9D00;
+    }
+  }
+  
+  // Resend Text
+  .resend-text {
+    font-size: 14px;
+    color: #718096;
+    text-align: center;
+    margin: 0 0 30px 0;
+  }
+  
+  .resend-link {
+    color: #FF9D00;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  // Verify Button
+  .verify-button {
+    --background: #FF9D00;
+    --background-hover: #FF9D00;
+    --background-activated: #FF9D00;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 15px rgba(229, 194, 37, 0.3);
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: none;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  // Change Number
+  .change-number {
+    font-size: 15px;
+    color: #3A3A3A;
+    text-align: center;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 10px 0 0 0;
+    text-decoration: underline;
+    font-family: Montserrat;
+  
+    &:hover {
+      color: #10b981;
+    }
+  }
+  
+  // Responsive Design
+  @media (max-width: 375px) {
+    .otp-input {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+  
+    .otp-container {
+      gap: 10px;
+    }
+  }
