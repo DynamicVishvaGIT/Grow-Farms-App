@@ -108,9 +108,9 @@ export class AppComponent {
       // this.displayProfileData.email_id = currentUser.email_id;
       if (Object.keys(currentUser).length != 0) {
         this.userService.setCurrentUser(currentUser);  // Update via UserService
-        this.router.navigateByUrl('/investor-dashboard');  // Navigate to home page after login
+        this.router.navigateByUrl('/home');  // Navigate to home page after login
       } else {
-        this.router.navigate(['/investor-dashboard']);
+        this.router.navigate(['/login']);
       }
     }
 
