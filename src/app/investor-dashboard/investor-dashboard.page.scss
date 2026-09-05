@@ -1,0 +1,703 @@
+$brand-orange: #FF9900;
+$brand-green: #00BA76;
+$bg-light: #F8F9FA;
+$text-dark: #1A1A1A;
+
+/* Sticky Top Header Container */
+.sticky-header-container {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #ffffff;
+  padding-top: env(safe-area-inset-top, 12px);
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.dashboard-page-content {
+  --background: #{$bg-light} !important;
+  background-color: $bg-light !important;
+  --padding-bottom: 90px;
+  --padding-top: 10px;
+}
+
+/* Header & Welcome Styling */
+.dashboard-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 20px 4px 20px;
+
+  .welcome-heading {
+    font-family: Montserrat !important;
+    font-size: 17px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 2px 0;
+  }
+
+  .subtitle-text {
+    font-family: Montserrat !important;
+    font-size: 14px;
+    color: #666666;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .notification-bell-box {
+    width: 25px;
+    height: 25px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    position: relative;
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 20px;
+      color: #333333;
+    }
+  }
+}
+
+.feature-icon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Property Selector Box & Functional Dropdown */
+.property-selector-box {
+  padding: 4px 20px 12px 20px;
+  position: relative;
+
+  .selector-label {
+    font-size: 12px;
+    color: #888888;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    font-family: inter !important;
+  }
+
+  .dropdown-trigger-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-top: 2px;
+
+    .property-selected-name {
+      font-family: Montserrat !important;
+      font-size: 20px;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    ion-icon {
+      font-size: 18px;
+      color: #333333;
+    }
+  }
+
+  .property-dropdown-menu {
+    position: absolute;
+    top: 62px;
+    left: 20px;
+    right: 20px;
+    background: #FFFFFF;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border: 1px solid #EBEBEB;
+    z-index: 1005;
+    overflow: hidden;
+
+    .dropdown-option-item {
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333333;
+      border-bottom: 1px solid #F4F4F4;
+      cursor: pointer;
+      transition: background 0.15s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:active, &:hover {
+        background: #FFF5E6;
+        color: #FF9900;
+      }
+    }
+  }
+}
+
+/* Common Dashboard Card Container */
+.dashboard-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 18px 20px;
+  margin: 14px 16px 0 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F0F0F0;
+}
+
+/* Portfolio Value Card Specs */
+.portfolio-value-card {
+  .portfolio-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-mini-label {
+    font-family: Inter;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 24px;
+    letter-spacing: 0px;
+    vertical-align: middle;
+  }
+
+  .portfolio-amount-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-dark;
+    margin: 4px 0 0 0;
+  }
+
+  .growth-percentage-pill {
+    background: #E8F8F0;
+    color: $brand-green;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: inter !important;
+  }
+}
+
+/* Timeframe Filters */
+.timeframe-filters-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  
+
+  .tf-filter-btn {
+    flex: 1;
+    border-radius: 9999px;
+    background: #F4F4F4;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 57px;
+    height: 32px;
+    font-family: Inter;
+    font-style: Regular;
+    leading-trim: NONE;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+        margin-right: 18px;
+        margin-bottom: 14px;
+
+    &.active {
+      background: $brand-orange;
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(255, 153, 0, 0.25);
+    }
+  }
+}
+
+/* Growth Chart Container with Divider before Months */
+.chart-container-box {
+  margin-top: 14px;
+  position: relative;
+
+  .portfolio-growth-svg {
+    width: 100%;
+    height: 85px;
+  }
+
+  .chart-divider-line {
+    width: 100%;
+    height: 1px;
+    background-color: #EEEEEE;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+
+  .chart-xaxis-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #999999;
+    padding: 0 4px;
+    font-weight: 400;
+    font-family: inter;
+    font-style: regular;
+  }
+}
+
+/* Asset Allocation Card */
+.allocation-summary-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px;
+
+  .donut-visual-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(
+      #00BA76 0deg 120deg, 
+      #FFFFFF 120deg 122deg, 
+      #FF9900 122deg 358deg, 
+      #FFFFFF 358deg 360deg
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+    .donut-ring-mockup {
+      width: 82px;
+      height: 82px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .donut-inner-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.1;
+
+        .donut-total-number {
+          font-size: 16px;
+          font-weight: 400;
+          color: $text-dark;
+        }
+
+        .donut-total-label {
+          font-size: 12px;
+          color: #777777;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  .allocation-legend-section {
+    width: 100%;
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 12px 0;
+      text-align: left;
+      font-family: inter !important;
+    }
+
+    .legend-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0; /* Adjusted padding for clean spacing around the divider */
+
+      /* Added horizontal divider line between legend items matching the screenshot */
+      &:not(:last-child) {
+        border-bottom: 1px solid #EEEEEE;
+      }
+
+      .legend-label-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .color-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+
+          &.orange-dot { background: #FF9900; }
+          &.green-dot { background: #00BA76; }
+        }
+
+        .legend-name {
+          font-size: 16px;
+          font-weight: 400;
+          color: #444444;
+          font-style: regular;
+          font-family: inter;
+        }
+      }
+
+      .legend-percentage {
+        font-family: Inter;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+/* Promotional Banner Card */
+.promo-banner-card {
+  width: 350px;
+  height: 141px;
+  margin: 14px auto 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&auto=format&fit=crop&q=80') center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+
+  .promo-banner-overlay {
+    width: 100%;
+
+    .banner-badge-top {
+      font-size: 9px;
+      text-transform: uppercase;
+      font-weight: 700;
+      background: rgba(255,255,255,0.2);
+      color: #FFFFFF;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .banner-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0 0 4px 0;
+      line-height: 1.1;
+    }
+
+    .banner-price-tag {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFD700;
+
+      span {
+        font-size: 11px;
+        font-weight: 400;
+        color: #DDDDDD;
+      }
+    }
+  }
+}
+
+/* Year-wise Interest Bar Chart Card */
+.yearwise-interest-card {
+  width: 342px;
+  height: 249px;
+  margin: 14px auto 0 auto;
+  border-radius: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+
+  .card-header-flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0;
+      font-family: inter;
+    }
+
+    .peak-interest-indicator {
+      font-size: 12px;
+      font-weight: 500;
+      color: #A0522D;
+      margin-right: 23px;
+    }
+  }
+
+  .bar-chart-visual-container {
+    width: 294px;
+    height: 136px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+    margin: 0 auto;
+
+    .bar-column-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      height: 100%;
+      justify-content: flex-end;
+
+      .bar-pillar-1 {
+        width: 32px;
+        height: 51.19px;
+        background: #FF990066;
+        opacity: 1;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+
+      .bar-pillar-2 {
+        width: 32px;
+        height: 83.19px;
+        background: #FF990099;
+        opacity: 1;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+
+      .bar-pillar-3 {
+        width: 32px;
+        height: 108.80px;
+        background: #FF9900CC;
+        opacity: 1;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+
+      .bar-pillar-4 {
+        width: 32px;
+        height: 128px;
+        background: #A0522D;
+        opacity: 1;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.1), 0px 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .bar-chart-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #EEEEEE;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+
+  .bar-xaxis-labels-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    .bar-xaxis-label {
+      font-size: 12px;
+      color: #888888;
+      font-weight: 400;
+      text-align: center;
+      flex: 1;
+      font-family: inter !important;
+    }
+  }
+}
+
+/* Section Header Bar */
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 10px 20px;
+
+  .section-title-bold {
+    font-size: 18px;
+    font-weight: 800;
+    color: $text-dark;
+    margin: 0;
+    font-family: inter !important;
+    font-style: regular;
+  }
+
+  .see-all-action-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: $brand-orange;
+    cursor: pointer;
+  }
+}
+
+/* Active Assets Cards */
+.active-assets-vertical-stack {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .asset-item-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    cursor: pointer;
+
+    .asset-thumb-frame {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .asset-info-column {
+      flex: 1;
+
+      .asset-top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+
+        .asset-name-title {
+          font-size: 14px;
+          font-weight: 800;
+          color: $text-dark;
+          margin: 0;
+          font-family: inter;
+          margin-bottom: 4px;
+        }
+
+        .asset-badge-green {
+          background: #E8F8F0;
+          color: $brand-green;
+          font-size: 12px;
+          font-weight: 700;
+          padding: 2px 8px;
+          border-radius: 10px;
+          font-family: inter !important;
+          margin-bottom: 5px;
+        }
+      }
+
+      .asset-bottom-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      
+
+      .asset-progress-track {
+        width: 100%;
+        height: 4px;
+        background: #EEEEEE;
+        border-radius: 2px;
+        overflow: hidden;
+
+        .asset-progress-fill {
+          height: 100%;
+          background: $brand-orange;
+          border-radius: 2px;
+
+          &.orange-fill {
+            background: $brand-orange;
+          }
+        }
+      }
+    }
+  }
+}
+
+.asset-bottom-beta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 6px;
+        font-weight: 600 !important;
+
+      }
+
+/* Custom Pinned Bottom Tabs Bar */
+.custom-bottom-tabs-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #EEEEEE;
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.04);
+
+  .tab-item-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: 1;
+    color: #888888;
+    transition: color 0.15s ease;
+
+    ion-icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: 400;
+      color: #0C0C0D;
+    }
+
+    &.active {
+      color: #FF9900;
+    }
+  }
+}

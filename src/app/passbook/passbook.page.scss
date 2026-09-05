@@ -1,0 +1,163 @@
+$primary-orange: #ff9800;
+$light-bg: #f4f6f9;
+$text-dark: #222222;
+$text-light: #9E9E9E;
+$green-color: #2e7d32;
+$red-color: #d32f2f;
+
+.passbook-container {
+  background-color: $light-bg;
+  min-height: 100vh;
+  padding: 16px;
+  padding-bottom: 90px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 16px;
+
+  h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+}
+
+.search-bar {
+  background: #ffffff;
+  border: 1px solid #E4E7EC;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+
+  .search-icon {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    width: 100%;
+    background: transparent;
+    color: $text-dark;
+    
+    &::placeholder {
+      color: #9E9E9E;
+      font-weight: 400;
+    }
+  }
+}
+
+/* Master card wrapping all rows together exactly like the first screenshot */
+.transaction-wrapper-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 4px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid #EBEFF5;
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-card {
+  background: #ffffff;
+  padding: 16px 8px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F0F2F5;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .date-box {
+    background: #F4F5F7;
+    border-radius: 12px;
+    padding: 8px 10px;
+    text-align: center;
+    min-width: 44px;
+    margin-right: 14px;
+
+    .day {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: #2C2C2C;
+      line-height: 1.2;
+    }
+
+    .month {
+      display: block;
+      font-size: 12px;
+      color: $text-light;
+     
+      font-weight: 400;
+      margin-top: 1px;
+    }
+  }
+
+  .transaction-details {
+    flex-grow: 1;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin: 0 0 2px 0;
+      letter-spacing: -0.2px;
+    }
+
+    p {
+      font-size: 11px;
+      color: $text-light;
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+
+  .amount-group {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 10px;
+
+    .amount-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+
+      .status-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .amount {
+        font-size: 13px;
+        font-weight: 400;
+        color: #1A1A1A;
+        letter-spacing: -0.3px;
+      }
+    }
+
+    .percentage {
+      display: block;
+      font-size: 9px;
+      color: $green-color;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'investor-dashboard',
     pathMatch: 'full'
   },
   {
@@ -62,6 +62,18 @@ const routes: Routes = [
   {
     path: 'ticket-details/:ticket_id',
     loadChildren: () => import('./ticket-details/ticket-details.module').then( m => m.TicketDetailsPageModule)
+  },
+  {
+    path: 'investor-dashboard',
+    loadChildren: () => import('./investor-dashboard/investor-dashboard.module').then( m => m.InvestorDashboardPageModule)
+  },
+  {
+    path: 'passbook',
+    loadChildren: () => import('./passbook/passbook.module').then( m => m.PassbookPageModule)
+  },
+  {
+    path: 'my-investment',
+    loadChildren: () => import('./my-investment/my-investment.module').then( m => m.MyInvestmentPageModule)
   },
 ];
 

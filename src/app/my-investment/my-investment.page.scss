@@ -1,0 +1,420 @@
+$orange: #ff9800;
+$bg: #f5f6fa;
+$text: #333;
+$muted: #777;
+
+* {
+  box-sizing: border-box;
+}
+
+.investment-container {
+  height: 100vh;
+  background: $bg;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+
+/* =========================
+   FIXED HEADER
+========================= */
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 18px 18px 14px;
+  z-index: 20;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+
+  h1 {
+    margin: 0 0 3px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #555;
+  }
+}
+
+.notification-icon {
+  position: relative;
+
+  img {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -1px;
+    width: 7px;
+    height: 7px;
+    background: #d71920;
+    border: 2px solid #fff;
+    border-radius: 50%;
+  }
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-bar {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+
+  span {
+    font-size: 21px;
+    color: #777;
+    line-height: 1;
+  }
+
+  input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: 12px;
+    color: #333;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+}
+
+
+/* =========================
+   SCROLLABLE AREA
+========================= */
+
+.scroll-content {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 128px 18px 85px;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+.filter-tabs {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  button {
+    flex-shrink: 0;
+    padding: 7px 13px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    color: #555;
+    font-size: 11px;
+    white-space: nowrap;
+
+    &.active {
+      color: $orange;
+      border-color: $orange;
+      background: #fff;
+    }
+  }
+}
+
+
+/* =========================
+   INFO MESSAGE
+========================= */
+
+.info-message {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  margin-bottom: 38px;
+  background: #fff0f1;
+  border-radius: 4px;
+
+  span {
+    width: 11px;
+    height: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ff9da5;
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: 7px;
+    line-height: 1.3;
+    color: #777;
+  }
+}
+
+
+/* =========================
+   INVESTMENT LIST
+========================= */
+
+.investment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.investment-card {
+  background: #fff;
+  border-radius: 9px;
+  padding: 14px;
+}
+
+
+/* CARD TOP */
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.ref-no {
+  display: block;
+  margin-bottom: 2px;
+  color: #999;
+  font-size: 8px;
+}
+
+.card-top h2 {
+  margin: 0;
+  color: #222;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.status-badge {
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 7px;
+  white-space: nowrap;
+
+  &.document-verification {
+    background: #e9fae8;
+    color: #32a537;
+  }
+
+  &.confirmed {
+    background: #fff4df;
+    color: #ed8b00;
+  }
+}
+
+
+/* DETAILS */
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 11px;
+  margin-bottom: 11px;
+  border-bottom: 1px dashed #eee;
+  color: #777;
+  font-size: 10px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .icon {
+    color: $orange;
+    font-size: 14px;
+  }
+}
+
+
+/* PROGRESS */
+
+.progress-section {
+  padding-bottom: 11px;
+  border-bottom: 1px dashed #eee;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 10px;
+  color: #222;
+
+  strong {
+    color: $orange;
+    font-size: 10px;
+  }
+}
+
+.progress-bar-bg {
+  height: 5px;
+  margin-bottom: 6px;
+  background: #eee;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: $orange;
+}
+
+.progress-amounts {
+  display: flex;
+  justify-content: space-between;
+  color: #333;
+  font-size: 9px;
+}
+
+
+/* DATE */
+
+.investment-date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0;
+  color: #777;
+  font-size: 9px;
+
+  span:first-child {
+    color: $orange;
+  }
+}
+
+
+/* ACTIONS */
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+
+.withdrawal-btn {
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 5px;
+  background: $orange;
+  color: #fff;
+  font-size: 9px;
+}
+
+.action-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  span {
+    font-size: 14px;
+    cursor: pointer;
+
+    &:first-child {
+      color: #00a85a;
+    }
+
+    &:nth-child(2) {
+      color: #ff9800;
+    }
+
+    &:last-child {
+      color: #008de4;
+    }
+  }
+}
+
+
+/* =========================
+   FIXED BOTTOM NAV
+========================= */
+
+.footer-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, .06);
+  z-index: 30;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: #555;
+  font-size: 9px;
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.active {
+    color: $orange;
+    font-weight: 600;
+  }
+}

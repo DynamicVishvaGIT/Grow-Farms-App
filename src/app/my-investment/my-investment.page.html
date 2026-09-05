@@ -1,0 +1,160 @@
+<div class="investment-container">
+
+  <!-- FIXED HEADER -->
+  <div class="fixed-header">
+
+    <header class="header">
+      <div>
+        <h1>My Investment</h1>
+        <p>2 total Investment</p>
+      </div>
+
+      <div class="notification-icon">
+        <img src="assets/icons/notification.png" alt="Notification">
+      </div>
+    </header>
+
+    <!-- FIXED SEARCH -->
+    <div class="search-bar">
+      <span>⌕</span>
+      <input
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchQuery"
+        (input)="filterInvestments()"
+      >
+    </div>
+
+  </div>
+
+
+  <!-- SCROLLABLE CONTENT -->
+  <main class="scroll-content">
+
+    <!-- FILTERS -->
+    <div class="filter-tabs">
+      <button
+        *ngFor="let tab of tabs"
+        [class.active]="selectedTab === tab"
+        (click)="selectTab(tab)">
+        {{ tab }}
+      </button>
+    </div>
+
+    <!-- INFO MESSAGE -->
+    <div class="info-message">
+      <span>!</span>
+      <p>
+        The investor can submit a withdrawal request only after completing
+        3 years from the investment date.
+      </p>
+    </div>
+
+    <!-- INVESTMENTS -->
+    <div class="investment-list">
+
+      <div
+        class="investment-card"
+        *ngFor="let item of filteredInvestments">
+
+        <!-- TOP -->
+        <div class="card-top">
+          <div>
+            <span class="ref-no">Ref: {{ item.refNo }}</span>
+            <h2>{{ item.title }}</h2>
+          </div>
+
+          <span
+            class="status-badge"
+            [ngClass]="item.statusClass">
+            {{ item.status }}
+          </span>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="card-details">
+
+          <div class="detail-item">
+            <span class="icon">⌖</span>
+            <span>Gat No: {{ item.gatNo }}</span>
+          </div>
+
+          <div class="detail-item">
+            <span class="icon">▣</span>
+            <span>{{ item.sqft }}</span>
+          </div>
+
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-section">
+
+          <div class="progress-header">
+            <span>Payment Progress</span>
+            <strong>{{ item.progress }}%</strong>
+          </div>
+
+          <div class="progress-bar-bg">
+            <div
+              class="progress-bar-fill"
+              [style.width.%]="item.progress">
+            </div>
+          </div>
+
+          <div class="progress-amounts">
+            <span>Paid: ₹{{ item.paidAmount }}</span>
+            <span>Total: ₹{{ item.totalAmount }}</span>
+          </div>
+
+        </div>
+
+        <!-- DATE -->
+        <div class="investment-date">
+          <span>▣</span>
+          <span>Invested on {{ item.date }}</span>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="card-actions">
+
+          <button class="withdrawal-btn">
+            Withdrawal Request
+          </button>
+
+          <div class="action-icons">
+            <span>●</span>
+            <span>▰</span>
+            <span>▣</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- FIXED BOTTOM NAV -->
+  <nav class="footer-nav">
+
+    <div
+      class="nav-item"
+      *ngFor="let nav of navItems"
+      [class.active]="activeNav === nav.name"
+      (click)="onNavClick(nav.name)">
+
+      <img
+        [src]="activeNav === nav.name
+          ? nav.activeIcon
+          : nav.inactiveIcon"
+        [alt]="nav.name">
+
+      <span>{{ nav.name }}</span>
+
+    </div>
+
+  </nav>
+
+</div>

@@ -1,0 +1,63 @@
+<div class="passbook-container">
+  <!-- Header Section -->
+  <header class="header">
+    <h1>Passbook</h1>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#9E9E9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <input 
+      type="text" 
+      placeholder="Search" 
+      [(ngModel)]="searchQuery" 
+      (input)="filterPassbook()" 
+    />
+  </div>
+
+  <!-- Transaction List -->
+  <div class="transaction-list">
+    <div class="transaction-card" *ngFor="let item of filteredTransactions">
+      <div class="date-box">
+        <span class="day">{{ item.day }}</span>
+        <span class="month">{{ item.month }}</span>
+      </div>
+
+      <div class="transaction-details">
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.subText }}</p>
+      </div>
+
+      <div class="amount-group">
+        <div class="amount-row">
+          <span class="status-icon" [ngClass]="item.type">
+            <svg *ngIf="item.type === 'incoming'" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="#2e7d32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg *ngIf="item.type === 'outgoing'" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 7L17 17M17 17V7M17 17H7" stroke="#d32f2f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="amount" [ngClass]="item.type">
+            {{ item.amount }}
+          </span>
+        </div>
+        <span class="percentage">{{ item.percentage }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Footer Navigation (Uncommented and matches your active navigation property)
+  <nav class="footer-nav">
+    <div 
+      class="nav-item" 
+      *ngFor="let nav of navItems" 
+      [class.active]="activeNav === nav.name"
+      (click)="onNavClick(nav.name)">
+      <img [src]="activeNav === nav.name ? nav.activeIcon : nav.inactiveIcon" [alt]="nav.name" />
+      <span>{{ nav.name }}</span>
+    </div>
+  </nav>
+</div> -->
