@@ -99,22 +99,53 @@ export class VerifyOtpPage implements OnInit {
     let formData = new FormData();
     formData.append("mobile_no",this.mobileNumber),
     formData.append("otp",otp),
-    formData.append("user_type",this.commonService.user_type),
+    // formData.append("user_type",this.commonService.user_type),
     this.apiService.verify_otp(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      let user = response.user_details;
-      user.user_id = response.user_id;
-      user.session_id = response.session_id;
-      user.user_type = response.user_type;
-      console.log(user);
-      this.userService.setCurrentUser(user);
-      localStorage.setItem('currentUser',JSON.stringify(user));
-      this.commonService.showToastMessage(response.message, 'toast-success','', 2000);
+      const accounts = response.accounts || [];
       this.commonService.dismissLoading();
-      this.clearOtp();
-      this.navCtrl.navigateRoot('/home');
+      if (accounts.length === 1) {
+        const account = accounts[0];
+        const userType = account.user_type || response.user_type;
+        console.log('Single Account:', account);
+        console.log('User Type:', userType);
+        if (userType === 'User') {
+          this.router.navigate(['/home']);
+        } 
+        else if (userType === 'Investor') {
+          this.router.navigate(['/investor-dashboard']);
+        } 
+        else {
+          this.commonService.showToastMessage('Invalid user type','toast-error','',4000);
+        }
+        return;
+      }
+      /** CASE 2:* Multiple accounts exist*/
+      if (accounts.length > 1) {
+        console.log('Multiple Accounts:', accounts);
+        this.router.navigate(['/login'], {
+          state: {
+            accounts: accounts,
+            mobile_no: this.mobileNumber
+          }
+        });
+        return;
+      }
+      /** CASE 3:* No account found*/
+      this.commonService.showToastMessage('No account found','toast-error','',4000);
+      // let user = response.user_details;
+      // user.user_id = response.user_id;
+      // user.session_id = response.session_id;
+      // user.user_type = response.user_type;
+      // console.log(user);
+      // this.userService.setCurrentUser(user);
+      // localStorage.setItem('currentUser',JSON.stringify(user));
+      // this.commonService.showToastMessage(response.message, 'toast-success','', 2000);
+      // this.commonService.dismissLoading();
+      // this.clearOtp();
+      // this.navCtrl.navigateRoot('/home');
     },
     respError => {
       this.commonService.dismissLoading();

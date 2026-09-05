@@ -31,6 +31,14 @@ export class Api {
     )
   }
 
+  select_account(account:any) {
+    return this.httpClient.post(this.baseUrl + 'select_account', account)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   resend_otp(user:any) {
     return this.httpClient.post(this.baseUrl + 'resend_otp', user)
     .pipe(

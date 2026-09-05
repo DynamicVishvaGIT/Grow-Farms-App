@@ -110,7 +110,7 @@ export class AppComponent {
         this.userService.setCurrentUser(currentUser);  // Update via UserService
         this.router.navigateByUrl('/home');  // Navigate to home page after login
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login-by-type']);
       }
     }
 

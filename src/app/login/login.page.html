@@ -13,7 +13,7 @@
     <!-- Login Options -->
     <div class="login-options">
       <!-- Investor Login Card -->
-      <ion-card class="login-card" >
+      <ion-card class="login-card" (click)="selectAccountByType('Investor')">
         <ion-card-content>
           <div class="card-inner">
             <div class="icon-wrapper">
@@ -29,7 +29,7 @@
       </ion-card>
 
       <!-- End User Login Card -->
-      <ion-card class="login-card" (click)="navigateToLoginByType()">
+      <ion-card class="login-card" (click)="selectAccountByType('User')">
         <ion-card-content>
           <div class="card-inner">
             <div class="icon-wrapper">
