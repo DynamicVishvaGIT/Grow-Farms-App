@@ -19,15 +19,16 @@
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
     <ion-tabs  #myTabs (ionTabsDidChange)="getSelectedTab()">
-      <ion-tab-bar slot="bottom" selectedTab="{{tab_name}}" *ngIf="tab_name =='my-bookings'|| tab_name =='home' || tab_name =='payment-slabs'  || tab_name =='my-profile'|| tab_name =='document-list' || tab_name =='payment-receipt' || tab_name =='scheme-offers' || tab_name =='order-history' || tab_name =='project-lead' || tab_name =='scancounterboy' || tab_name =='passbook' || tab_name =='projectlist' ">
-        <ion-tab-button tab="home" class="active">
+      <ion-tab-bar slot="bottom" selectedTab="{{tab_name}}" *ngIf="tab_name =='my-bookings'|| tab_name =='home' || tab_name =='withdrawal-request' || tab_name =='investor-dashboard' || tab_name =='payment-slabs'  || tab_name =='my-profile'|| tab_name =='document-list' || tab_name =='payment-receipt' || tab_name =='scheme-offers' || tab_name =='order-history' || tab_name =='project-lead' || tab_name =='scancounterboy' || tab_name =='passbook' || tab_name =='projectlist' ">
+        <ion-tab-button [tab]="dashboardTab" class="active">
           <ion-icon name="home"></ion-icon>
           <ion-label>Dashboard</ion-label>
         </ion-tab-button>
       
         <ion-tab-button tab="my-bookings">
           <ion-icon name="document-text"></ion-icon>
-          <ion-label>Booking</ion-label>
+          <ion-label>{{selectedTabLabel}}</ion-label>
+          <!-- <ion-label *ngIf="tab_name =='investor-dashboard'">Investments</ion-label> -->
         </ion-tab-button>
       
         <ion-tab-button tab="payment-slabs">

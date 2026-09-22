@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Api } from '../api';
 import { Common } from '../common';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private navCtrl: NavController,
     private apiService: Api,
-    private commonService: Common
+    private commonService: Common, private userService: User
   ) {}
 
   ngOnInit() {
@@ -78,19 +79,27 @@ export class LoginPage implements OnInit {
             return;
           }
           /** Store tokens if returned by API */
-          if (response.access_token) {
-            localStorage.setItem('access_token',response.access_token);
-          }
-          if (response.refresh_token) {
-            localStorage.setItem('refresh_token',response.refresh_token);
-          }
-          /** Store user details if required*/
-          if (response.user_id) {
-            localStorage.setItem('user_id',String(response.user_id));
-          }
-          if (response.user_type) {
-            localStorage.setItem('user_type',response.user_type);
-          }
+          // if (response.access_token) {
+          //   localStorage.setItem('access_token',response.access_token);
+          // }
+          // if (response.refresh_token) {
+          //   localStorage.setItem('refresh_token',response.refresh_token);
+          // }
+          // /** Store user details if required*/
+          // if (response.user_id) {
+          //   localStorage.setItem('user_id',String(response.user_id));
+          // }
+          // if (response.user_type) {
+          //   localStorage.setItem('user_type',response.user_type);
+          // }
+          let user = response.user_details;
+          user.user_id = response.user_id;
+          user.access_token = response.access_token;
+          user.refresh_token = response.refresh_token;
+          user.user_type = response.user_type;
+          console.log(user);
+          this.userService.setCurrentUser(user);
+          localStorage.setItem('currentUser',JSON.stringify(user));
           /** Redirect based on selected user type*/
           const userType = response.user_type || account.user_type;
           if (userType === 'User') {
@@ -102,6 +111,18 @@ export class LoginPage implements OnInit {
           else {
             this.commonService.showToastMessage('Invalid user type','toast-error','',4000);
           }
+
+          // let user = response.user_details;
+          // user.user_id = response.user_id;
+          // user.session_id = response.session_id;
+          // user.user_type = response.user_type;
+          // console.log(user);
+          // this.userService.setCurrentUser(user);
+          // localStorage.setItem('currentUser',JSON.stringify(user));
+          // this.commonService.showToastMessage(response.message, 'toast-success','', 2000);
+          // this.commonService.dismissLoading();
+          // this.clearOtp();
+          // this.navCtrl.navigateRoot('/home');
         },
         (error) => {
           console.error('Select Account API Error:',error);

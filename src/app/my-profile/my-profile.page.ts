@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { AlertController, ToastController, ModalController } from '@ionic/angular';
+import { AlertController, ToastController, ModalController, IonicSafeString } from '@ionic/angular';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { Api } from '../api';
 import { User } from '../user';
@@ -44,6 +44,9 @@ export class MyProfilePage implements OnInit {
   pendingTickets: number = 4;
   rejectedTickets: number = 0;
 
+  myWithdrawal:any=[];
+  userAccounts: any=[];
+
   // Tickets List
   tickets: Ticket[] = [
     {
@@ -65,6 +68,24 @@ export class MyProfilePage implements OnInit {
       date: '16-09-2025'
     }
   ];
+
+  // Add this property to your class variables alongside selectedTab
+  // withdrawalList: any[] = [
+  //   {
+  //     property_name: 'SKYBREEZ',
+  //     date: '18-09-2025',
+  //     amount: '150,000',
+  //     status: 'Pending Payment',
+  //     statusClass: 'pending'
+  //   },
+  //   {
+  //     property_name: 'ORCHID HEIGHTS',
+  //     date: '10-09-2025',
+  //     amount: '75,000',
+  //     status: 'Approved',
+  //     statusClass: 'approved'
+  //   }
+  // ];
 
   constructor(
     private router: Router, private alertController: AlertController, private toastController: ToastController, private modalController: ModalController,
@@ -93,6 +114,10 @@ export class MyProfilePage implements OnInit {
       ).subscribe((event: NavigationEnd) => {
         if (event.url.includes('/my-profile')){ // Check if user navigated back to a specific URL
           this.load_support_ticket_details();
+          this.get_user_accounts();
+          if(this.currentUser.user_type=='Investor'){
+            this.load_my_withdraw_requests();
+          }
         }
     });
     // this.load_support_ticket_details();
@@ -132,6 +157,110 @@ export class MyProfilePage implements OnInit {
       this.dataLoaded = false;
       this.commonService.showToastMessage(respError, 'toast-error','', 4000);
     })
+  }
+
+  load_my_withdraw_requests() {
+    // this.commonService.presentLoading();
+    this.dataLoaded = false;
+    this.apiService.load_my_withdraw_requests()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.myWithdrawal = response.data;
+      // this.dataLoaded = true;
+      // this.commonService.dismissLoading();
+    },
+    respError => {
+      // this.commonService.dismissLoading();
+      this.dataLoaded = false;
+      this.commonService.showToastMessage(respError, 'toast-error','', 4000);
+    })
+  }
+
+  get_user_accounts() {
+    let user: any={phone_number:''};
+    user.phone_number = this.currentUser.phone_number;
+    this.apiService.get_user_accounts(user)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.userAccounts = response.accounts;
+    },
+    respError => {
+      // this.commonService.dismissLoading();
+      this.dataLoaded = false;
+      this.commonService.showToastMessage(respError, 'toast-error','', 4000);
+    })
+  }
+
+  async onSwitchAccount() {
+    const currentType = this.currentUser?.user_type;
+    if (!currentType) {
+      this.commonService.showToastMessage('Current account information not found','toast-error','',4000);
+      return;
+    }
+    const nextType = currentType === 'Investor'? 'User': 'Investor';
+    const message = new IonicSafeString(
+      `Are you sure you want to switch from ` +
+      `<strong>${currentType}</strong> account to ` +
+      `<strong>${nextType}</strong> account?`
+    );
+    const alert = await this.alertController.create({
+      header: 'Switch Account',
+      message: message,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Switch',
+          cssClass: 'switch-account-confirm-button',
+          handler: () => {
+            this.switchAccount();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  private switchAccount() {
+    this.commonService.presentLoading();
+    this.apiService.switch_account().pipe(
+      takeUntil(this._unsubscribeAll)).subscribe({
+        next: (response: any) => {
+          console.log('Switch Account Response:', response);
+          this.commonService.dismissLoading();
+          if (!response || !response.status) {
+            this.commonService.showToastMessage(response?.message || 'Unable to switch account','toast-error','',4000);
+            return;
+          }
+          /** Create the same user object structure* that your existing login flow uses.*/
+          const user = response.user_details || {};
+          user.user_id = response.user_id;
+          user.user_type = response.user_type;
+          user.access_token = response.access_token;
+          user.refresh_token = response.refresh_token;
+          console.log('New Current User:', user);
+          /** Update UserService.** This also updates localStorage because your* existing User.setCurrentUser() already does that.*/
+          this.userService.setCurrentUser(user);
+          /** Explicitly save currentUser as well.* This keeps the same behaviour as your existing* selectAccount() login flow.*/
+          localStorage.setItem('currentUser',JSON.stringify(user));
+          /** Determine dashboard from new account type.*/
+          const dashboard = response.user_type === 'Investor'? '/investor-dashboard': '/home';
+          /** Navigate to the new account dashboard.*/
+          this.router.navigateByUrl(dashboard,{ replaceUrl: true }).then(() => {
+            /** Full reload.** This ensures all dashboard components,* tabs, API data and account-specific state* are initialized again using the new token/user_type.*/
+            window.location.reload();
+          });
+        },
+        error: (error: any) => {
+          console.error('Switch Account API Error:',error);
+          this.commonService.dismissLoading();
+          this.commonService.showToastMessage(error?.error?.message || error?.message || 'Unable to switch account. Please try again.','toast-error','',4000);
+        }
+      });
   }
 
   /**
@@ -401,7 +530,7 @@ export class MyProfilePage implements OnInit {
   private async confirmLogout() {
     this.userService.clearCurrentUser();  // 🔥 important
     localStorage.removeItem('currentUser');
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('login-by-type');
   }
 
 }

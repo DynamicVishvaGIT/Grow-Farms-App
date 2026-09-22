@@ -7,32 +7,37 @@
     <div class="welcome-text">
       <h1 class="welcome-title">Profile</h1>
     </div>
-    <div class="notification-icon" (click)="onLogout()"><!--(click)="onNotificationClick()"-->
+    <div class="notification-icon" (click)="onLogout()">
       <ion-icon name="log-out-outline"></ion-icon>
     </div>
   </div>
 
   <!-- Profile Info -->
   <div class="profile-info">
-    <h2 class="user-name">{{ currentUser?.FULL_NAME }}</h2>
-    <!-- <ion-button class="edit-profile-btn" (click)="onEditProfile()">
-      Edit profile
-    </ion-button> -->
+    <h2 class="user-name">{{ currentUser?.full_name }}</h2>
   </div>
 
-  <!-- Tabs -->
-  <div class="profile-tabs">
-    <div 
-      class="tab-item" 
-      [class.active]="selectedTab === 'profile'"
-      (click)="switchTab('profile')">
-      <span class="tab-label">My Profile</span>
-    </div>
-    <div 
-      class="tab-item" 
-      [class.active]="selectedTab === 'tickets'"
-      (click)="switchTab('tickets')">
-      <span class="tab-label">Your Tickets</span>
+  <!-- Tabs (Scrollable) -->
+  <div class="profile-tabs-scrollable">
+    <div class="profile-tabs">
+      <div 
+        class="tab-item" 
+        [class.active]="selectedTab === 'profile'"
+        (click)="switchTab('profile')">
+        <span class="tab-label">My Profile</span>
+      </div>
+      <div 
+        class="tab-item" 
+        [class.active]="selectedTab === 'tickets'"
+        (click)="switchTab('tickets')">
+        <span class="tab-label">Your Tickets</span>
+      </div>
+      <div 
+        class="tab-item" 
+        [class.active]="selectedTab === 'withdrawal'"
+        (click)="switchTab('withdrawal')" *ngIf="currentUser.user_type=='Investor'">
+        <span class="tab-label">Withdrawal</span>
+      </div>
     </div>
   </div>
 
@@ -46,7 +51,7 @@
         </div>
         <div class="field-info">
           <p class="field-label">User Name</p>
-          <p class="field-value">{{ currentUser?.FULL_NAME }}</p>
+          <p class="field-value">{{ currentUser?.full_name }}</p>
         </div>
       </div>
 
@@ -57,7 +62,7 @@
         </div>
         <div class="field-info">
           <p class="field-label">Email Id</p>
-          <p class="field-value">{{ currentUser?.EMAIL_ID }}</p>
+          <p class="field-value">{{ currentUser?.email }}</p>
         </div>
       </div>
 
@@ -68,18 +73,28 @@
         </div>
         <div class="field-info">
           <p class="field-label">Mobile No</p>
-          <p class="field-value">{{ currentUser?.PHONE_NUMBER }}</p>
+          <p class="field-value">{{ currentUser?.phone_number }}</p>
         </div>
       </div>
-
-      <!-- Delete Profile Button -->
-      <!-- <ion-button 
-        class="delete-profile-btn" 
-        fill="solid"
-        (click)="onDeleteProfile()">
-        <ion-icon name="trash-outline" slot="start"></ion-icon>
-        Delete Profile
-      </ion-button> -->
+      <!-- Switch Account -->
+    <div class="switch-account-card" (click)="onSwitchAccount()" *ngIf="userAccounts.length>1">
+      <div class="switch-account-left">
+        <div class="switch-account-icon">
+          <ion-icon name="swap-horizontal-outline"></ion-icon>
+        </div>
+        <div class="switch-account-info">
+          <p class="switch-account-title">Switch Account</p>
+          <p class="switch-account-subtitle">
+            Switch to
+            {{ currentUser?.user_type === 'Investor' ? 'User' : 'Investor' }}
+            account
+          </p>
+        </div>
+      </div>
+      <div class="switch-account-arrow">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -123,7 +138,6 @@
 
           <div class="ticket-body">
             <h3 class="ticket-title">{{ ticket.TICKET_SUBJECT }}</h3>
-            <!-- <p class="ticket-description">{{ ticket.description }}</p> -->
           </div>
 
           <div class="ticket-footer">
@@ -132,8 +146,37 @@
         </div>
 
         <!-- Empty State -->
-        <div class="empty-state" *ngIf="myTickets.length === 0">
+        <div class="empty-state" *ngIf="myTickets?.length === 0">
           <p>No tickets found</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdrawal Tab Content -->
+  <div class="tab-content" *ngIf="selectedTab === 'withdrawal' && currentUser.user_type=='Investor'">
+    <div class="withdrawal-content">
+      <div class="withdrawal-list">
+        <div class="withdrawal-card" *ngFor="let item of myWithdrawal">
+          <div class="withdrawal-header">
+            <h3 class="property-name">{{ item.property_name }}</h3>
+            <span class="withdrawal-status" [ngClass]="item.status">{{ item.status }}</span>
+          </div>
+          <div class="withdrawal-body">
+            <div class="withdrawal-row">
+              <span class="w-label">Date</span>
+              <span class="w-value">{{ item.date }}</span>
+            </div>
+            <div class="withdrawal-row">
+              <span class="w-label">Amount</span>
+              <span class="w-value amount-highlight">₹{{ item.withdraw_amount }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="myWithdrawal.length === 0">
+          <p>No withdrawal requests found</p>
         </div>
       </div>
     </div>
@@ -142,3 +185,121 @@
   <!-- Bottom Spacing -->
   <div class="bottom-spacing"></div>
 </ion-content>
+<!-- <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="header-section">
+    <div class="welcome-text">
+      <h1 class="welcome-title">Profile</h1>
+    </div>
+    <div class="notification-icon" (click)="onLogout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </div>
+  </div>
+
+  <div class="profile-info">
+    <h2 class="user-name">{{ currentUser?.FULL_NAME }}</h2>
+  </div>
+
+  <div class="profile-tabs">
+    <div 
+      class="tab-item" 
+      [class.active]="selectedTab === 'profile'"
+      (click)="switchTab('profile')">
+      <span class="tab-label">My Profile</span>
+    </div>
+    <div 
+      class="tab-item" 
+      [class.active]="selectedTab === 'tickets'"
+      (click)="switchTab('tickets')">
+      <span class="tab-label">Your Tickets</span>
+    </div>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'profile'">
+    <div class="profile-content">
+      <div class="profile-field">
+        <div class="field-icon user-icon">
+          <ion-icon name="person"></ion-icon>
+        </div>
+        <div class="field-info">
+          <p class="field-label">User Name</p>
+          <p class="field-value">{{ currentUser?.full_name }}</p>
+        </div>
+      </div>
+
+      <div class="profile-field">
+        <div class="field-icon email-icon">
+          <ion-icon name="mail"></ion-icon>
+        </div>
+        <div class="field-info">
+          <p class="field-label">Email Id</p>
+          <p class="field-value">{{ currentUser?.email }}</p>
+        </div>
+      </div>
+
+      <div class="profile-field">
+        <div class="field-icon phone-icon">
+          <ion-icon name="call"></ion-icon>
+        </div>
+        <div class="field-info">
+          <p class="field-label">Mobile No</p>
+          <p class="field-value">{{ currentUser?.phone_number }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'tickets'">
+    <div class="tickets-content">
+      <div class="stats-cards">
+        <div class="stat-card">
+          <p class="stat-label">In Progress</p>
+          <h3 class="stat-value verified">{{ countData.in_process }}</h3>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Pending</p>
+          <h3 class="stat-value pending">{{ countData.pending }}</h3>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Rejected</p>
+          <h3 class="stat-value rejected">{{ countData.rejected }}</h3>
+        </div>
+      </div>
+
+      <div class="new-ticket-wrapper">
+        <ion-button class="new-ticket-btn" (click)="navigateToNewTicket()">
+          New Ticket
+        </ion-button>
+      </div>
+
+      <div class="tickets-list">
+        <div class="ticket-card" *ngFor="let ticket of myTickets" (click)="viewTicket(ticket)">
+          <div class="ticket-header">
+            <div class="ticket-info">
+              <span class="ticket-number">#{{ ticket.id }} • payment</span>
+            </div>
+            <div class="ticket-status" [ngClass]="ticket.STATUS">
+              {{ ticket.STATUS }}
+            </div>
+          </div>
+
+          <div class="ticket-body">
+            <h3 class="ticket-title">{{ ticket.TICKET_SUBJECT }}</h3>
+          </div>
+
+          <div class="ticket-footer">
+            <span class="ticket-date">{{ ticket.CREATED_DATE | date:'dd-MM-yyyy' }}</span>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="myTickets.length === 0">
+          <p>No tickets found</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-spacing"></div>
+</ion-content> -->

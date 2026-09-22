@@ -3,11 +3,11 @@
      <!-- Header Section -->
     <div class="header-section">
       <div class="header-text">
-        <h1 class="page-title">My Bookings</h1>
-        <p class="total-bookings">{{ totalBookings }} total bookings</p>
+        <h1 class="page-title">{{currentUser.user_type=='Investor'?'My Investment':'My Bookings'}}</h1>
+        <p class="total-bookings">{{ totalBookings }} total {{currentUser.user_type=='Investor'?'Investment':'bookings'}}</p>
       </div>
       <div class="notification-icon" (click)="onNotificationClick()">
-        <img src="assets/images/notification.svg" alt="Notification Icon" *ngIf="notificationCount > 0"/>
+        <img src="assets/images/noti.png" alt="Notification Icon" *ngIf="notificationCount > 0"/>
         <img src="assets/images/notification1.svg" alt="Notification Icon" *ngIf="notificationCount == 0"/>
         <!-- <ion-icon name="notifications-outline"></ion-icon>
         <span class="notification-badge" *ngIf="notificationCount > 0"></span> -->
@@ -58,6 +58,11 @@
       <ion-label>Cancelled</ion-label>
     </ion-chip>
   </div>
+  <!-- Withdrawal Info Banner -->
+  <div class="info-banner" *ngIf="currentUser.user_type=='Investor'">
+    <ion-icon name="information-circle" class="info-icon"></ion-icon>
+    <p class="info-text">The investor can submit a withdrawal request only after completing 3 years from the investment date.</p>
+  </div>
   </ion-toolbar>
 </ion-header>
 
@@ -65,12 +70,11 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
   <!-- Bookings List -->
   <div class="bookings-container" *ngIf="dataLoaded && filteredBookings.length>0">
-    <div class="booking-card" *ngFor="let booking of filteredBookings" (click)="viewBooking(booking)"><!--*ngFor="let booking of filteredBookings"-->
+    <div class="booking-card" *ngFor="let booking of filteredBookings"><!--*ngFor="let booking of filteredBookings"-->
       <!-- Card Header -->
-      <div class="card-header">
+      <div class="card-header" (click)="viewBooking(booking)">
         <div class="ref-info">
           <p class="ref-number">Ref: {{ booking.reference_code }}</p>
           <h2 class="property-name">{{ booking.property_name }}</h2>
@@ -89,7 +93,7 @@
       </div>
 
       <!-- Property Details -->
-      <div class="property-details">
+      <div class="property-details" (click)="viewBooking(booking)">
         <div class="detail-item">
           <ion-icon name="location-outline" class="detail-icon location-icon"></ion-icon>
           <span class="detail-text">Gat No: {{ booking.survey_no }}</span>
@@ -102,7 +106,7 @@
       </div>
 
       <!-- Payment Progress -->
-      <div class="payment-section">
+      <div class="payment-section" (click)="viewBooking(booking)">
         <div class="progress-header">
           <span class="progress-label">Payment Progress</span>
           <span class="progress-percentage">{{ booking.progress_percent }}%</span>
@@ -119,11 +123,30 @@
       <!-- Booking Date -->
       <div class="booking-date">
         <ion-icon name="calendar-outline"></ion-icon>
-        <span>Booked on {{ booking.booked_on | date:'dd. MM. yyyy' }}</span>
+        <span *ngIf="currentUser.user_type=='User'">Booked on {{ booking.booking_date }}</span><!--| date:'dd. MM. yyyy'-->
+        <span *ngIf="currentUser.user_type=='Investor'">Booked on {{ booking.booking_date }}</span>
         <!-- <span>Booked by {{ booking.employee_name }}</span> -->
       </div>
 
       <!-- Action Buttons -->
+       <!-- Action Buttons -->
+      <div class="action-buttons" *ngIf="currentUser.user_type=='Investor' && booking.withdrawal.eligible_amount>0">
+        <ion-button fill="solid" class="withdrawal-btn" (click)="withdrawalRequest(booking.id); $event.stopPropagation()">
+          Withdrawal Request
+        </ion-button>
+
+        <!-- <div class="icon-actions">
+          <ion-button fill="clear" class="action-btn view-btn" (click)="viewBooking(booking); $event.stopPropagation()">
+            <ion-icon name="eye-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" class="action-btn message-btn" (click)="messageBooking(booking); $event.stopPropagation()">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" class="action-btn schedule-btn" (click)="scheduleBooking(booking); $event.stopPropagation()">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </ion-button>
+        </div> -->
+      </div>
       <!-- <div class="action-buttons">
         <ion-button fill="clear" class="action-btn view-btn" (click)="viewBooking(booking)">
           <ion-icon name="eye-outline"></ion-icon>

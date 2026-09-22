@@ -1,5 +1,192 @@
-<!-- Sticky Top Header Section -->
 <div class="sticky-header-container">
+  <div class="dashboard-header-row">
+    <div class="header-titles-col">
+      <h1 class="welcome-heading">{{ welcomeMessage }} !</h1>
+      <p class="subtitle-text">Here's your property overview</p>
+    </div>
+    <div class="notification-bell-box" (click)="openNotifications()">
+      <img src="assets/images/noti.png" alt="Notification" class="feature-icon-img" />
+      <span class="notification-badge-dot"></span>
+    </div>
+  </div>
+
+  <div class="property-selector-box">
+    <span class="selector-label">Select Property</span>
+    <div class="dropdown-trigger-row" (click)="selectProperty()">
+      <span class="property-selected-name">{{ selectedProperty.length > 12 ? (selectedProperty | slice:0:12) + '...' : selectedProperty }}</span>
+      <ion-icon [name]="isDropdownOpen ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+    </div>
+  </div>
+</div>
+
+<ion-content [fullscreen]="false" class="dashboard-page-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="dashboard-card portfolio-value-card">
+    <div class="portfolio-header-flex">
+      <div>
+        <span class="card-mini-label">Portfolio Value</span>
+        <h2 class="portfolio-amount-title">{{ formatIndianCurrency(portfolio.portfolio_value) }}</h2>
+      </div>
+      <div class="growth-percentage-pill" [class.negative]="!isPositiveGrowth">
+        <ion-icon [name]="isPositiveGrowth ? 'trending-up-outline' : 'trending-down-outline'"></ion-icon>
+        <span>{{ isPositiveGrowth ? '+' : '' }}{{ portfolio.growth_percentage }}%</span>
+      </div>
+    </div>
+
+    <div class="timeframe-filters-row">
+      <button
+        *ngFor="let tf of timeframes"
+        class="tf-filter-btn"
+        [class.active]="selectedTimeframe === tf"
+        (click)="selectTimeframe(tf)">
+        {{ tf }}
+      </button>
+    </div>
+
+    <!-- Note: API response has no time-series data for this chart yet,
+         so the growth line stays illustrative until that endpoint exists -->
+      <div class="chart-container-box">
+      <svg viewBox="0 0 320 90" class="portfolio-growth-svg" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FF9900" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#FF9900" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="30" x2="320" y2="30" stroke="#F0F0F0" stroke-width="1" stroke-dasharray="4 4" />
+        <line x1="0" y1="60" x2="320" y2="60" stroke="#F0F0F0" stroke-width="1" stroke-dasharray="4 4" />
+        <path [attr.d]="areaPath" fill="url(#chartGradient)" />
+        <path [attr.d]="linePath" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    
+      <div class="chart-divider-line"></div>
+    
+      <div class="chart-xaxis-labels">
+        <span *ngFor="let point of chartData">{{ point.month }}</span>
+      </div>
+    </div>
+    <!-- <div class="chart-container-box">
+      <svg viewBox="0 0 320 90" class="portfolio-growth-svg" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FF9900" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#FF9900" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="30" x2="320" y2="30" stroke="#F0F0F0" stroke-width="1" stroke-dasharray="4 4" />
+        <line x1="0" y1="60" x2="320" y2="60" stroke="#F0F0F0" stroke-width="1" stroke-dasharray="4 4" />
+        <path d="M0,70 C60,65 110,75 160,45 C210,15 260,30 320,10 L320,90 L0,90 Z" fill="url(#chartGradient)" />
+        <path d="M0,70 C60,65 110,75 160,45 C210,15 260,30 320,10" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+
+      <div class="chart-divider-line"></div>
+
+      <div class="chart-xaxis-labels">
+        <span>Oct</span>
+        <span>Nov</span>
+        <span>Dec</span>
+        <span>Jan</span>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="dashboard-card allocation-summary-card">
+    <div class="donut-visual-container" [style.background]="donutBackground">
+      <div class="donut-ring-mockup">
+        <div class="donut-inner-content">
+          <span class="donut-total-number">{{ portfolio.total_assets }}</span>
+          <span class="donut-total-label">Assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="allocation-legend-section">
+      <h3 class="section-title">Allocation</h3>
+      <div class="legend-item-row" *ngFor="let item of allocation; let i = index">
+        <div class="legend-label-group">
+          <span class="color-dot" [style.background]="getAllocationColor(i)"></span>
+          <span class="legend-name">{{ item.name }}</span>
+        </div>
+        <span class="legend-percentage">{{ item.percentage }}%</span>
+      </div>
+      <div class="legend-item-row" *ngIf="!allocation || allocation.length === 0">
+        <span class="legend-name">No allocation data</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo-banner-card" (click)="openPromoBanner()">
+    <div class="promo-banner-overlay">
+      <div class="banner-badge-top">Limited Edition</div>
+      <h3 class="banner-title" [innerHTML]="banner.title"></h3>
+      <div class="banner-price-tag">{{ banner.price }}* <span>{{ banner.description }}</span></div>
+    </div>
+  </div>
+
+  <div class="dashboard-card yearwise-interest-card">
+    <div class="card-header-flex-between">
+      <h3 class="section-title">Year-wise Interest</h3>
+      <span class="peak-interest-indicator">{{ peakInterestLabel }}</span>
+    </div>
+
+    <div class="bar-chart-visual-container">
+      <div class="bar-column-group" *ngFor="let item of yearWiseInterest; let i = index">
+        <div
+          class="bar-pillar"
+          [class.bar-pillar-peak]="isLastBar(i, yearWiseInterest.length)"
+          [style.height.px]="getBarHeight(item.amount)"
+          [style.background]="getBarColor(i, yearWiseInterest.length)">
+        </div>
+      </div>
+    </div>
+
+    <div class="bar-chart-divider"></div>
+
+    <div class="bar-xaxis-labels-row">
+      <span class="bar-xaxis-label" *ngFor="let item of yearWiseInterest">{{ item.year }}</span>
+    </div>
+  </div>
+
+  <div class="section-header-row">
+    <h3 class="section-title-bold">Active Assets</h3>
+    <span class="see-all-action-text" (click)="goToInvestment()">See All</span>
+  </div>
+
+  <div class="active-assets-vertical-stack">
+    <div
+      class="asset-item-card"
+      *ngFor="let asset of activeAssets"
+      (click)="openAssetDetails(asset.booking_id)">
+      <div class="asset-thumb-frame">
+        <img [src]="asset.image || defaultAssetImage" [alt]="asset.property_name" />
+      </div>
+      <div class="asset-info-column">
+        <div class="asset-top-row">
+          <h4 class="asset-name-title">{{ asset.property_name }}</h4>
+          <span class="asset-badge-green" [ngClass]="getAssetBadgeClass(asset)">{{ getAssetBadgeText(asset) }}</span>
+        </div>
+        <div class="asset-bottom-meta">
+          <span class="inv-label">Inv: {{ formatLakh(asset.invested_amount) }}</span>
+          <span class="val-label asset-bottom-beta">Val: {{ formatLakh(asset.current_value) }}</span>
+        </div>
+        <div class="asset-progress-track">
+          <div class="asset-progress-fill" [style.width.%]="getAssetProgress(asset)"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="asset-item-card" *ngIf="!activeAssets || activeAssets.length === 0">
+      <div class="asset-info-column">
+        <h4 class="asset-name-title">No active assets</h4>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+<!-- <div class="sticky-header-container">
   <div class="dashboard-header-row">
     <div class="header-titles-col">
       <h1 class="welcome-heading">Welcome Gauresh Lotlikar !</h1>
@@ -11,29 +198,19 @@
     </div>
   </div>   
 
-  <!-- Property Selector Dropdown with Interactive List -->
   <div class="property-selector-box">
     <span class="selector-label">Select Property</span>
-    <div class="dropdown-trigger-row" (click)="togglePropertyDropdown()">
-      <span class="property-selected-name">{{ selectedProperty }}</span>
+    <div class="dropdown-trigger-row" (click)="selectProperty()">
+      <span class="property-selected-name">{{ selectedProperty.length > 12 ? (selectedProperty | slice:0:12) + '...' : selectedProperty }}</span>
       <ion-icon [name]="isDropdownOpen ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
-    </div>
-
-    <!-- Dropdown Options Popup List -->
-    <div class="property-dropdown-menu" *ngIf="isDropdownOpen">
-      <div 
-        class="dropdown-option-item" 
-        *ngFor="let prop of propertyList" 
-        (click)="selectPropertyOption(prop)">
-        {{ prop }}
-      </div>
     </div>
   </div>
 </div>
 
 <ion-content [fullscreen]="false" class="dashboard-page-content">
-
-  <!-- Portfolio Value Card -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="dashboard-card portfolio-value-card">
     <div class="portfolio-header-flex">
       <div>
@@ -46,7 +223,6 @@
       </div>
     </div>
 
-    <!-- Timeframe Filter Buttons (1M, 3M, 6M, ALL) -->
     <div class="timeframe-filters-row">
       <button 
         *ngFor="let tf of timeframes" 
@@ -57,7 +233,6 @@
       </button>
     </div>
 
-    <!-- SVG Smooth Portfolio Growth Chart Preview with Divider before Months -->
     <div class="chart-container-box">
       <svg viewBox="0 0 320 90" class="portfolio-growth-svg" preserveAspectRatio="none">
         <defs>
@@ -72,10 +247,8 @@
         <path d="M0,70 C60,65 110,75 160,45 C210,15 260,30 320,10" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round"/>
       </svg>
 
-      <!-- Divider placed before month labels -->
       <div class="chart-divider-line"></div>
 
-      <!-- X-Axis Labels -->
       <div class="chart-xaxis-labels">
         <span>Oct</span>
         <span>Nov</span>
@@ -85,7 +258,6 @@
     </div>
   </div>
 
-  <!-- Asset Allocation Donut / Summary Card -->
   <div class="dashboard-card allocation-summary-card">
     <div class="donut-visual-container">
       <div class="donut-ring-mockup">
@@ -115,7 +287,6 @@
     </div>
   </div>
 
-  <!-- Promotional Banner Image Card -->
   <div class="promo-banner-card" (click)="openPromoBanner()">
     <div class="promo-banner-overlay">
       <div class="banner-badge-top">Limited Edition</div>
@@ -124,7 +295,6 @@
     </div>
   </div>
 
-  <!-- Year-wise Interest Bar Chart Card (Exact Sized container & precise bar heights/opacities) -->
   <div class="dashboard-card yearwise-interest-card">
     <div class="card-header-flex-between">
       <h3 class="section-title">Year-wise Interest</h3>
@@ -132,25 +302,20 @@
     </div>
 
     <div class="bar-chart-visual-container">
-      <!-- 1st Bar (2021) -->
       <div class="bar-column-group">
         <div class="bar-pillar-1"></div>
       </div>
-      <!-- 2nd Bar (2022) -->
       <div class="bar-column-group">
         <div class="bar-pillar-2"></div>
       </div>
-      <!-- 3rd Bar (2023) -->
       <div class="bar-column-group">
         <div class="bar-pillar-3"></div>
       </div>
-      <!-- 4th Bar (2024 - Peak) -->
       <div class="bar-column-group">
         <div class="bar-pillar-4"></div>
       </div>
     </div>
 
-    <!-- Divider placed before year labels -->
     <div class="bar-chart-divider"></div>
 
     <div class="bar-xaxis-labels-row">
@@ -161,16 +326,13 @@
     </div>
   </div>
 
-  <!-- Active Assets Section Header -->
   <div class="section-header-row">
     <h3 class="section-title-bold">Active Assets</h3>
     <span class="see-all-action-text" (click)="viewAllAssets()">See All</span>
   </div>
 
-  <!-- Active Assets List Stack -->
   <div class="active-assets-vertical-stack">
     
-    <!-- Asset Card 1 -->
     <div class="asset-item-card" (click)="openAssetDetails('kokan')">
       <div class="asset-thumb-frame">
         <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&auto=format&fit=crop&q=80" alt="Kokan Mango Estate" />
@@ -190,7 +352,6 @@
       </div>
     </div>
 
-    <!-- Asset Card 2 -->
     <div class="asset-item-card" (click)="openAssetDetails('teakwood')">
       <div class="asset-thumb-frame">
         <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=200&auto=format&fit=crop&q=80" alt="Teakwood Valley" />
@@ -212,10 +373,10 @@
 
   </div>
 
-</ion-content>
+</ion-content> -->
 
 <!-- Bottom Custom Navigation Bar -->
-<div class="custom-bottom-tabs-bar">
+<!-- <div class="custom-bottom-tabs-bar">
   <div class="tab-item-node active" (click)="switchTab('dashboard')">
     <img src="assets/images/dash.png" alt="Dashboard" class="feature-icon-img" />
     <span style="color: #FF9D00 !important;">Dashboard</span>
@@ -236,4 +397,4 @@
     <img src="assets/images/prof.png" alt="Profile" class="feature-icon-img" />
     <span>Profile</span>
   </div>
-</div>
+</div> -->

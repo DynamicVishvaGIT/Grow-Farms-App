@@ -2,7 +2,7 @@ $primary-orange: #ff9800;
 $light-bg: #f4f6f9;
 $text-dark: #222222;
 $text-light: #9E9E9E;
-$green-color: #2e7d32;
+$green-color: #22C55E;
 $red-color: #d32f2f;
 
 .passbook-container {
@@ -15,7 +15,42 @@ $red-color: #d32f2f;
 }
 
 .header {
+  display: flex;
+  align-items: center;
+
+  /* Status-bar safe area */
+  padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  padding-right: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+
   margin-bottom: 16px;
+
+  box-sizing: border-box;
+  background: transparent;
+
+  .back-btn {
+    width: 24px;
+    height: 24px;
+
+    padding: 0;
+    margin: 0 12px 0 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    cursor: pointer;
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+    }
+  }
 
   h1 {
     font-size: 18px;
@@ -152,12 +187,14 @@ $red-color: #d32f2f;
       }
     }
 
-    .percentage {
-      display: block;
-      font-size: 9px;
-      color: $green-color;
-      font-weight: 400;
-      margin-top: 2px;
-    }
+   
   }
+}
+
+.percentage {
+  display: block;
+  font-size: 9px;
+  color: $green-color;
+  font-weight: 400;
+  margin-top: 2px;
 }

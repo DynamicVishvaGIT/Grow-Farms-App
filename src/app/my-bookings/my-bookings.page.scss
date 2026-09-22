@@ -540,3 +540,83 @@ ion-content {
     width: 100%;
     border-bottom: 1px solid #f0f0f0;
   }
+
+  // Info Banner
+.info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #FDECEC;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 0 20px 16px 20px;
+
+  .info-icon {
+    font-size: 18px;
+    color: #FF1010;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .info-text {
+    font-size: 13px;
+    color: #333333;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+// Action Buttons (replace your existing .action-buttons / .action-btn rules)
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #EFEFEF;
+}
+
+.withdrawal-btn {
+  --background: #FF9D00;
+  --background-activated: #FF8800;
+  --color: #ffffff;
+  --border-radius: 6px;
+  --box-shadow: none;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: none;
+  height: 38px;
+  margin: 0;
+}
+
+.icon-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  height: 38px;
+  width: 38px;
+  margin: 0;
+
+  ion-icon {
+    font-size: 20px;
+  }
+
+  &.view-btn {
+    --color: #4CAF50;
+    ion-icon { color: #4CAF50; }
+  }
+
+  &.message-btn {
+    --color: #FF9500;
+    ion-icon { color: #FF9500; }
+  }
+
+  &.schedule-btn {
+    --color: #2196F3;
+    ion-icon { color: #2196F3; }
+  }
+}

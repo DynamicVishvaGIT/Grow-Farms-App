@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Api } from '../api';
+import { ActionSheetController, AlertController, Platform, ToastController } from '@ionic/angular';
+import { Common } from '../common';
+import { User } from '../user';
+import { filter, Subject, Subscription, takeUntil } from 'rxjs';
 
 interface Transaction {
   day: string;
@@ -17,59 +22,101 @@ interface Transaction {
   styleUrls: ['./passbook.page.scss'],
   standalone:false,
 })
-export class PassbookPage {
-searchQuery: string = '';
+export class PassbookPage implements OnInit {
+
+  private _unsubscribeAll: Subject<any>;
+
+  backButtonSub!: Subscription;
+
+  currentUser:any;
+  searchQuery: string = '';
   activeNav: string = 'Payment'; // Assuming Passbook falls under Payment / Wallet tab
+  transactions: any=[];
+  dataLoaded:boolean = true;
 
-  // navItems = [
-  //   { name: 'Dashboard', inactiveIcon: 'assets/icons/dashboard.png', activeIcon: 'assets/icons/dashboard-active.png' },
-  //   { name: 'Investments', inactiveIcon: 'assets/icons/investment.png', activeIcon: 'assets/icons/investment-active.png' },
-  //   { name: 'Payment', inactiveIcon: 'assets/icons/payment.png', activeIcon: 'assets/icons/payment-active.png' },
-  //   { name: 'Document', inactiveIcon: 'assets/icons/document.png', activeIcon: 'assets/icons/document-active.png' },
-  //   { name: 'Profile', inactiveIcon: 'assets/icons/profile.png', activeIcon: 'assets/icons/profile-active.png' }
-  // ];
+  filteredTransactions: any;
+  booking_id: string | null='';
 
-  transactions: Transaction[] = [
-    {
-      day: '09',
-      month: 'Apr',
-      title: 'Skybreez',
-      subText: '1706265694/Invested amount',
-      amount: '2500000',
-      percentage: '(+20.5%)',
-      type: 'incoming'
-    },
-    {
-      day: '10',
-      month: 'Apr',
-      title: 'Skybreez',
-      subText: '1706265694/Interest amount',
-      amount: '2000',
-      percentage: '(+20.5%)',
-      type: 'incoming'
-    },
-    {
-      day: '11',
-      month: 'Apr',
-      title: 'Skybreez',
-      subText: '1706265694/withdrawal amount',
-      amount: '100000',
-      percentage: '(+20.5%)',
-      type: 'outgoing'
+  constructor(
+    private router: Router,private alertController: AlertController,private toastController: ToastController,private actionSheetController: ActionSheetController,
+    private apiService: Api, private commonService: Common, private userService: User,  private activatedRoute: ActivatedRoute, private platform: Platform
+  ) {
+    this._unsubscribeAll = new Subject();
+  }
+
+  ngOnInit() {
+    // this.loadPaymentSlabs();
+    this.userService.currentUser$.subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+        console.log('39',this.currentUser);
+      } 
+      else {
+        const storedUser = localStorage.getItem('currentUser');
+        if (storedUser) {
+          this.currentUser = JSON.parse(storedUser);
+          console.log('44',this.currentUser);
+        }
+      }
+    });
+    this.booking_id = this.activatedRoute.snapshot.paramMap.get('booking_id');
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url.includes('/passbook')){ // Check if user navigated back to a specific URL
+          this.mobile_investor_passbook();
+        }
+    });
+    // this.load_property();
+  }
+
+  ionViewDidEnter() {
+    this.backButtonSub = this.platform.backButton.subscribeWithPriority(
+      9999,
+      () => {
+        this.onBack();
+      }
+    );
+  }
+
+  ionViewWillLeave() {
+    if (this.backButtonSub) {
+      this.backButtonSub.unsubscribe();
     }
-  ];
+  }
 
-  filteredTransactions: Transaction[] = [...this.transactions];
+  mobile_investor_passbook() {
+    this.commonService.presentLoading();
+    this.dataLoaded = false;
+    this.apiService.mobile_investor_passbook()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.transactions = response?.data?.transactions;
+      this.filteredTransactions = [...this.transactions];
+      this.dataLoaded = true;
+      this.commonService.dismissLoading();
+    },
+    respError => {
+      this.dataLoaded = false;
+      this.commonService.dismissLoading();
+      this.commonService.showToastMessage(respError, 'toast-error','', 4000);
+    })
+  }
 
   filterPassbook() {
-    this.filteredTransactions = this.transactions.filter(item => {
-      return item.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-             item.subText.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+    this.filteredTransactions = this.transactions.filter((item:any) => {
+      return item.property.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+             item.reference_code.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
              item.amount.includes(this.searchQuery);
     });
   }
 
   onNavClick(navName: string) {
     this.activeNav = navName;
+  }
+
+  onBack() {
+    this.router.navigate(['/withdrawal-request', this.booking_id]);
   }
 }

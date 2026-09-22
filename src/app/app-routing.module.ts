@@ -68,12 +68,16 @@ const routes: Routes = [
     loadChildren: () => import('./investor-dashboard/investor-dashboard.module').then( m => m.InvestorDashboardPageModule)
   },
   {
-    path: 'passbook',
+    path: 'passbook/:booking_id',
     loadChildren: () => import('./passbook/passbook.module').then( m => m.PassbookPageModule)
   },
   {
     path: 'my-investment',
     loadChildren: () => import('./my-investment/my-investment.module').then( m => m.MyInvestmentPageModule)
+  },
+  {
+    path: 'withdrawal-request/:booking_id',
+    loadChildren: () => import('./withdrawal-request/withdrawal-request.module').then( m => m.WithdrawalRequestPageModule)
   },
 ];
 

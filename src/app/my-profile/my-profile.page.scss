@@ -1,445 +1,892 @@
 ion-content {
-    --background: #f5f5f5;
-  }
-  
-  // Header Section
-  // .header-section {
-  //   padding: 20px 20px 30px 20px;
-  //   background: #ffffff;
-  // }
-  .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px 20px 30px 20px;
-    background: #ffffff;
-    position: relative;
-    z-index: 10;
-    // min-height: 120px;
-    min-height: 82px;
-  }
-  
-  .welcome-text {
-    flex: 1;
-  }
-  
-  .welcome-title {
-    font-size: 16px;
-    font-weight: 700;
+  --background: #f5f5f5;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 20px 30px 20px;
+  background: #ffffff;
+  position: relative;
+  z-index: 10;
+  min-height: 82px;
+}
+
+.welcome-text {
+  flex: 1;
+}
+
+.welcome-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 4px 0;
+}
+
+.notification-icon {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 28px;
     color: #000000;
-    margin: 0 0 4px 0;
   }
-  
-  .welcome-subtitle {
-    font-size: 14px;
-    color: #666666;
-    margin: 0;
-    font-weight: 400;
+}
+
+.profile-info {
+  text-align: center;
+  background: #ffffff;
+  padding-bottom: 1px;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+/* Scrollable Tabs Styling */
+.profile-tabs-scrollable {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
   }
-  
-  .notification-icon {
-    position: relative;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  
-    ion-icon {
-      font-size: 28px;
-      color: #000000;
+}
+
+.profile-tabs {
+  display: inline-flex;
+  background: #ffffff;
+  min-width: 100%;
+}
+
+.tab-item {
+  flex: 0 0 auto;
+  min-width: 120px;
+  text-align: center;
+  padding: 16px 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &.active {
+    .tab-label {
+      color: #1E1E1E;
+      font-weight: 600;
     }
-  
-    .notification-badge {
+
+    &::after {
+      content: '';
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 10px;
-      height: 10px;
-      background: #ff4444;
-      border-radius: 50%;
-      border: 2px solid #ffffff;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #4CAF50;
     }
   }
-  
-  .page-title {
-    font-size: 16px;
+}
+
+.tab-label {
+  font-size: 15px;
+  color: #666666;
+  font-weight: 500;
+}
+
+.tab-content {
+  min-height: 400px;
+}
+
+.profile-content {
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+.profile-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 10px;
+}
+
+.field-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 24px;
+  }
+
+  &.user-icon, &.email-icon, &.phone-icon {
+    background: #E8F5E9;
+    ion-icon {
+      color: #4CAF50;
+    }
+  }
+}
+
+.field-info {
+  flex: 1;
+}
+
+.field-label {
+  font-size: 12px;
+  color: #6B7280;
+  margin: 0 0 6px 0;
+  font-weight: 400;
+}
+
+.field-value {
+  font-size: 14px;
+  color: #000000;
+  margin: 0;
+  font-weight: 400;
+}
+
+.tickets-content {
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+.stats-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  flex: 1;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stat-label {
+  font-size: 9px;
+  color: #222222;
+  margin: 0 0 8px 0;
+  font-weight: 400;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+
+  &.verified { color: #1D9DE2; }
+  &.pending { color: #7500F3; }
+  &.rejected { color: #3D47FF; }
+}
+
+.new-ticket-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.new-ticket-btn {
+  --background: #FF9D00;
+  --border-radius: 5px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --box-shadow: none;
+  height: 35px;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: none;
+  margin: 0;
+}
+
+.tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ticket-card {
+  background: #ffffff;
+  border-radius: 3px;
+  padding: 16px 8px;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ticket-number {
+  font-size: 14px;
+  color: #6B7280;
+  font-weight: 400;
+}
+
+.ticket-status {
+  padding: 6px 12px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.in_process { background: #FFF3E0; color: #EE7F00; }
+  &.verified, &.pending { background: #E8F5E9; color: #4CAF50; }
+  &.new { background: rgb(184 243 243 / 83%); color: teal; }
+  &.rejected { background: #FFEBEE; color: #F44336; }
+}
+
+.ticket-body {
+  margin-bottom: 12px;
+}
+
+.ticket-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 8px 0;
+}
+
+.ticket-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ticket-date {
+  font-size: 10px;
+  font-weight: 500;
+  color: #6B7280;
+}
+
+/* Withdrawal Tab Specific Styles matching screenshot design elements */
+.withdrawal-content {
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+.withdrawal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.withdrawal-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.withdrawal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.property-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+.withdrawal-status {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+
+  &.pending {
+    background: #E8F5E9;
+    color: #4CAF50;
+  }
+  &.Requested {
+    background: #E8F5E9;
+    color: #4CAF50;
+  }
+  &.approved {
+    background: #E3F2FD;
+    color: #1976D2;
+  }
+  &.rejected {
+    background: #FFEBEE;
+    color: #F44336;
+  }
+}
+
+.withdrawal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.withdrawal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.w-label {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+.w-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+
+  &.amount-highlight {
     font-weight: 700;
-    color: #000000;
-    margin: 0;
+    color: #FF9D00;
   }
-  
-  // Profile Info
-  .profile-info {
-    text-align: center;
-    // padding: 30px 20px 20px 20px;
-    background: #ffffff;
-    padding-bottom: 1px; // if edit button removed
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999999;
+  font-size: 15px;
+}
+
+.bottom-spacing {
+  height: 20px;
+}
+/* Switch Account */
+.switch-account-card {
+  margin: 20px 10px 0 10px;
+  padding: 14px 12px;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.switch-account-card:active {
+  transform: scale(0.98);
+  background: #fafafa;
+}
+
+.switch-account-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.switch-account-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #E8F5E9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 24px;
+    color: #4CAF50;
   }
-  
-  .user-name {
+}
+
+.switch-account-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.switch-account-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.switch-account-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.switch-account-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
     font-size: 20px;
-    font-weight: 700;
-    color: #000000;
-    margin: 0 0 20px 0;
-  }
-  
-  .edit-profile-btn {
-    --background: #FF9D00;
-    --background-activated: #e68600;
-    --background-hover: #e68600;
-    --border-radius: 28px;
-    --padding-start: 20px;
-    --padding-end: 20px;
-    height: 30px;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: none;
-    --box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
-  }
-  
-  // Tabs
-  .profile-tabs {
-    display: flex;
-    background: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .tab-item {
-    flex: 1;
-    text-align: center;
-    padding: 16px 0;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s ease;
-  
-    &.active {
-      .tab-label {
-        color: #1E1E1E;
-        font-weight: 400;
-      }
-  
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: #4CAF50;
-      }
-    }
-  }
-  
-  .tab-label {
-    font-size: 15px;
-    color: #666666;
-    font-weight: 500;
-  }
-  
-  // Tab Content
-  .tab-content {
-    min-height: 400px;
-  }
-  
-  // Profile Content
-  .profile-content {
-    padding: 20px;
-    background: #f5f5f5;
-  }
-  
-  .profile-field {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    // background: #ffffff;
-    // padding: 20px;
-    padding: 10px;
-    // border-radius: 12px;
-    // margin-bottom: 16px;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  }
-  
-  .field-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  
-    ion-icon {
-      font-size: 24px;
-    }
-  
-    &.user-icon {
-      background: #E8F5E9;
-      
-      ion-icon {
-        color: #4CAF50;
-      }
-    }
-  
-    &.email-icon {
-      background: #E8F5E9;
-      
-      ion-icon {
-        color: #4CAF50;
-      }
-    }
-  
-    &.phone-icon {
-      background: #E8F5E9;
-      
-      ion-icon {
-        color: #4CAF50;
-      }
-    }
-  }
-  
-  .field-info {
-    flex: 1;
-  }
-  
-  .field-label {
-    font-size: 12px;
     color: #6B7280;
-    margin: 0 0 6px 0;
-    font-weight: 400;
   }
+}
+::ng-deep .switch-account-confirm-button {
+  color: #4CAF50 !important;
+  font-weight: 600;
+}
+// ion-content {
+//     --background: #f5f5f5;
+//   }
   
-  .field-value {
-    font-size: 14px;
-    color: #000000;
-    margin: 0;
-    font-weight: 400;
-  }
+//   // Header Section
+//   // .header-section {
+//   //   padding: 20px 20px 30px 20px;
+//   //   background: #ffffff;
+//   // }
+//   .header-section {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: flex-start;
+//     padding: 20px 20px 30px 20px;
+//     background: #ffffff;
+//     position: relative;
+//     z-index: 10;
+//     // min-height: 120px;
+//     min-height: 82px;
+//   }
   
-  // Delete Profile Button
-  .delete-profile-btn {
-    --background: #6B7280;
-    --background-activated: #546E7A;
-    --background-hover: #546E7A;
-    --border-radius: 28px;
-    height: 30px;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: none;
-    margin-top: 20px;
-    width: 150px;
+//   .welcome-text {
+//     flex: 1;
+//   }
   
-    ion-icon {
-      font-size: 14px;
-      margin-right: 8px;
-    }
-  }
+//   .welcome-title {
+//     font-size: 16px;
+//     font-weight: 700;
+//     color: #000000;
+//     margin: 0 0 4px 0;
+//   }
   
-  // Tickets Content
-  .tickets-content {
-    padding: 20px;
-    background: #f5f5f5;
-  }
+//   .welcome-subtitle {
+//     font-size: 14px;
+//     color: #666666;
+//     margin: 0;
+//     font-weight: 400;
+//   }
   
-  // Stats Cards
-  .stats-cards {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
+//   .notification-icon {
+//     position: relative;
+//     width: 36px;
+//     height: 36px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     cursor: pointer;
   
-  .stat-card {
-    flex: 1;
-    background: #ffffff;
-    padding: 12px 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
+//     ion-icon {
+//       font-size: 28px;
+//       color: #000000;
+//     }
   
-  .stat-label {
-    font-size: 9px;
-    color: #222222;
-    margin: 0 0 8px 0;
-    font-weight: 400;
-  }
+//     .notification-badge {
+//       position: absolute;
+//       top: 8px;
+//       right: 8px;
+//       width: 10px;
+//       height: 10px;
+//       background: #ff4444;
+//       border-radius: 50%;
+//       border: 2px solid #ffffff;
+//     }
+//   }
   
-  .stat-value {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0;
+//   .page-title {
+//     font-size: 16px;
+//     font-weight: 700;
+//     color: #000000;
+//     margin: 0;
+//   }
   
-    &.verified {
-      color: #1D9DE2;
-    }
+//   // Profile Info
+//   .profile-info {
+//     text-align: center;
+//     // padding: 30px 20px 20px 20px;
+//     background: #ffffff;
+//     padding-bottom: 1px; // if edit button removed
+//   }
   
-    &.pending {
-      color: #7500F3;
-    }
+//   .user-name {
+//     font-size: 20px;
+//     font-weight: 700;
+//     color: #000000;
+//     margin: 0 0 20px 0;
+//   }
   
-    &.rejected {
-      color: #3D47FF;
-    }
-  }
+//   .edit-profile-btn {
+//     --background: #FF9D00;
+//     --background-activated: #e68600;
+//     --background-hover: #e68600;
+//     --border-radius: 28px;
+//     --padding-start: 20px;
+//     --padding-end: 20px;
+//     height: 30px;
+//     font-size: 14px;
+//     font-weight: 400;
+//     text-transform: none;
+//     --box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+//   }
   
-  // New Ticket Button
-  .new-ticket-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
+//   // Tabs
+//   .profile-tabs {
+//     display: flex;
+//     background: #ffffff;
+//     border-bottom: 1px solid #e0e0e0;
+//   }
   
-  .new-ticket-btn {
-    --background: #FF9D00;
-    --border-radius: 5px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --box-shadow: none;
-    height: 35px;
-    font-size: 15px;
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: 0;
-    margin: 0;
-  }
+//   .tab-item {
+//     flex: 1;
+//     text-align: center;
+//     padding: 16px 0;
+//     cursor: pointer;
+//     position: relative;
+//     transition: all 0.3s ease;
   
-  // Tickets List
-  .tickets-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+//     &.active {
+//       .tab-label {
+//         color: #1E1E1E;
+//         font-weight: 400;
+//       }
   
-  .ticket-card {
-    background: #ffffff;
-    border-radius: 3px;
-    padding: 16px 8px;
-    // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
+//       &::after {
+//         content: '';
+//         position: absolute;
+//         bottom: 0;
+//         left: 0;
+//         right: 0;
+//         height: 3px;
+//         background: #4CAF50;
+//       }
+//     }
+//   }
   
-  .ticket-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-  }
+//   .tab-label {
+//     font-size: 15px;
+//     color: #666666;
+//     font-weight: 500;
+//   }
   
-  .ticket-number {
-    font-size: 14px;
-    color: #6B7280;
-    font-weight: 400;
-  }
+//   // Tab Content
+//   .tab-content {
+//     min-height: 400px;
+//   }
   
-  .ticket-status {
-    padding: 6px 12px;
-    border-radius: 2px;
-    font-size: 12px;
-    font-weight: 500;
+//   // Profile Content
+//   .profile-content {
+//     padding: 20px;
+//     background: #f5f5f5;
+//   }
   
-    &.in_process {
-      background: #FFF3E0;
-      color: #EE7F00;
-    }
+//   .profile-field {
+//     display: flex;
+//     align-items: flex-start;
+//     gap: 16px;
+//     // background: #ffffff;
+//     // padding: 20px;
+//     padding: 10px;
+//     // border-radius: 12px;
+//     // margin-bottom: 16px;
+//     // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+//   }
   
-    &.verified {
-      background: #E8F5E9;
-      color: #4CAF50;
-    }
+//   .field-icon {
+//     width: 44px;
+//     height: 44px;
+//     border-radius: 10px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-shrink: 0;
+  
+//     ion-icon {
+//       font-size: 24px;
+//     }
+  
+//     &.user-icon {
+//       background: #E8F5E9;
+      
+//       ion-icon {
+//         color: #4CAF50;
+//       }
+//     }
+  
+//     &.email-icon {
+//       background: #E8F5E9;
+      
+//       ion-icon {
+//         color: #4CAF50;
+//       }
+//     }
+  
+//     &.phone-icon {
+//       background: #E8F5E9;
+      
+//       ion-icon {
+//         color: #4CAF50;
+//       }
+//     }
+//   }
+  
+//   .field-info {
+//     flex: 1;
+//   }
+  
+//   .field-label {
+//     font-size: 12px;
+//     color: #6B7280;
+//     margin: 0 0 6px 0;
+//     font-weight: 400;
+//   }
+  
+//   .field-value {
+//     font-size: 14px;
+//     color: #000000;
+//     margin: 0;
+//     font-weight: 400;
+//   }
+  
+//   // Delete Profile Button
+//   .delete-profile-btn {
+//     --background: #6B7280;
+//     --background-activated: #546E7A;
+//     --background-hover: #546E7A;
+//     --border-radius: 28px;
+//     height: 30px;
+//     font-size: 14px;
+//     font-weight: 400;
+//     text-transform: none;
+//     margin-top: 20px;
+//     width: 150px;
+  
+//     ion-icon {
+//       font-size: 14px;
+//       margin-right: 8px;
+//     }
+//   }
+  
+//   // Tickets Content
+//   .tickets-content {
+//     padding: 20px;
+//     background: #f5f5f5;
+//   }
+  
+//   // Stats Cards
+//   .stats-cards {
+//     display: flex;
+//     gap: 12px;
+//     margin-bottom: 20px;
+//   }
+  
+//   .stat-card {
+//     flex: 1;
+//     background: #ffffff;
+//     padding: 12px 16px;
+//     border-radius: 10px;
+//     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+//   }
+  
+//   .stat-label {
+//     font-size: 9px;
+//     color: #222222;
+//     margin: 0 0 8px 0;
+//     font-weight: 400;
+//   }
+  
+//   .stat-value {
+//     font-size: 16px;
+//     font-weight: 600;
+//     margin: 0;
+  
+//     &.verified {
+//       color: #1D9DE2;
+//     }
+  
+//     &.pending {
+//       color: #7500F3;
+//     }
+  
+//     &.rejected {
+//       color: #3D47FF;
+//     }
+//   }
+  
+//   // New Ticket Button
+//   .new-ticket-wrapper {
+//     display: flex;
+//     justify-content: flex-end;
+//     margin-bottom: 20px;
+//   }
+  
+//   .new-ticket-btn {
+//     --background: #FF9D00;
+//     --border-radius: 5px;
+//     --padding-start: 16px;
+//     --padding-end: 16px;
+//     --box-shadow: none;
+//     height: 35px;
+//     font-size: 15px;
+//     font-weight: 500;
+//     text-transform: none;
+//     letter-spacing: 0;
+//     margin: 0;
+//   }
+  
+//   // Tickets List
+//   .tickets-list {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 16px;
+//   }
+  
+//   .ticket-card {
+//     background: #ffffff;
+//     border-radius: 3px;
+//     padding: 16px 8px;
+//     // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+//   }
+  
+//   .ticket-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-bottom: 4px;
+//   }
+  
+//   .ticket-number {
+//     font-size: 14px;
+//     color: #6B7280;
+//     font-weight: 400;
+//   }
+  
+//   .ticket-status {
+//     padding: 6px 12px;
+//     border-radius: 2px;
+//     font-size: 12px;
+//     font-weight: 500;
+  
+//     &.in_process {
+//       background: #FFF3E0;
+//       color: #EE7F00;
+//     }
+  
+//     &.verified {
+//       background: #E8F5E9;
+//       color: #4CAF50;
+//     }
 
-    &.new {
-      background: rgb(184 243 243 / 83%);
-      color: teal;
-    }
+//     &.new {
+//       background: rgb(184 243 243 / 83%);
+//       color: teal;
+//     }
 
-    &.pending {
-      background: #E8F5E9;
-      color: #4CAF50;
-    }
+//     &.pending {
+//       background: #E8F5E9;
+//       color: #4CAF50;
+//     }
   
-    &.rejected {
-      background: #FFEBEE;
-      color: #F44336;
-    }
-  }
+//     &.rejected {
+//       background: #FFEBEE;
+//       color: #F44336;
+//     }
+//   }
   
-  .ticket-body {
-    margin-bottom: 12px;
-  }
+//   .ticket-body {
+//     margin-bottom: 12px;
+//   }
   
-  .ticket-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000000;
-    margin: 0 0 8px 0;
-  }
+//   .ticket-title {
+//     font-size: 16px;
+//     font-weight: 600;
+//     color: #000000;
+//     margin: 0 0 8px 0;
+//   }
   
-  .ticket-description {
-    font-size: 10px;
-    color: #6B7280;
-    font-weight: 400;
-    line-height: 1.5;
-    margin: 0;
-  }
+//   .ticket-description {
+//     font-size: 10px;
+//     color: #6B7280;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     margin: 0;
+//   }
   
-  .ticket-footer {
-    display: flex;
-    justify-content: flex-end;
-  }
+//   .ticket-footer {
+//     display: flex;
+//     justify-content: flex-end;
+//   }
   
-  .ticket-date {
-    font-size: 10px;
-    font-weight: 500;
-    color: #6B7280;
-  }
+//   .ticket-date {
+//     font-size: 10px;
+//     font-weight: 500;
+//     color: #6B7280;
+//   }
   
-  // Empty State
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #999999;
-    font-size: 15px;
-  }
+//   // Empty State
+//   .empty-state {
+//     text-align: center;
+//     padding: 60px 20px;
+//     color: #999999;
+//     font-size: 15px;
+//   }
   
-  // Bottom Spacing
-  .bottom-spacing {
-    height: 20px;
-  }
+//   // Bottom Spacing
+//   .bottom-spacing {
+//     height: 20px;
+//   }
   
-  // Custom Tab Bar
-  .custom-tab-bar {
-    --background: #ffffff;
-    border-top: 1px solid #e0e0e0;
-    height: 65px;
-    padding-bottom: 8px;
+//   // Custom Tab Bar
+//   .custom-tab-bar {
+//     --background: #ffffff;
+//     border-top: 1px solid #e0e0e0;
+//     height: 65px;
+//     padding-bottom: 8px;
   
-    ion-tab-button {
-      --color: #999999;
-      --color-selected: #FF9500;
-      font-size: 11px;
+//     ion-tab-button {
+//       --color: #999999;
+//       --color-selected: #FF9500;
+//       font-size: 11px;
   
-      ion-icon {
-        font-size: 24px;
-        margin-bottom: 4px;
-      }
+//       ion-icon {
+//         font-size: 24px;
+//         margin-bottom: 4px;
+//       }
   
-      ion-label {
-        font-weight: 500;
-        font-size: 11px;
-      }
+//       ion-label {
+//         font-weight: 500;
+//         font-size: 11px;
+//       }
   
-      &[aria-selected="true"],
-      &.tab-selected {
-        ion-icon,
-        ion-label {
-          color: #FF9500;
-        }
-      }
-    }
+//       &[aria-selected="true"],
+//       &.tab-selected {
+//         ion-icon,
+//         ion-label {
+//           color: #FF9500;
+//         }
+//       }
+//     }
   
-    ion-tab-button[tab="profile"] {
-      ion-icon,
-      ion-label {
-        color: #FF9500;
-      }
-    }
-  }
+//     ion-tab-button[tab="profile"] {
+//       ion-icon,
+//       ion-label {
+//         color: #FF9500;
+//       }
+//     }
+//   }

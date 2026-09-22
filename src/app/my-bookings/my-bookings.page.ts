@@ -79,8 +79,9 @@ doRefresh(event:any) {
 load_my_booking(booking_status:string) {
   this.commonService.presentLoading();
   this.dataLoaded = false;
-  let bookingData:any={login_user_id:'',booking_status:''};
-  bookingData['login_user_id'] = this.currentUser.user_id;
+  // let bookingData:any={login_user_id:'',booking_status:''};
+  let bookingData:any={booking_status:''};
+  // bookingData['login_user_id'] = this.currentUser.user_id;
   bookingData['booking_status'] = booking_status;
   this.apiService.load_my_booking(bookingData)
   .pipe(takeUntil(this._unsubscribeAll))
@@ -246,6 +247,30 @@ private async showToast(message: string, color: string = 'dark') {
     position: 'bottom'
   });
   await toast.present();
+}
+
+/**
+ * Submit withdrawal request
+ */
+async withdrawalRequest(booking_id: string) {
+  console.log('Withdrawal request for:', booking_id);
+  this.router.navigate(['/withdrawal-request', booking_id]);
+  // const alert = await this.alertController.create({
+  //   header: 'Withdrawal Request',
+  //   message: `Submit a withdrawal request for ${booking.property_name}?`,
+  //   buttons: [
+  //     { text: 'Cancel', role: 'cancel' },
+  //     {
+  //       text: 'Submit',
+  //       handler: () => {
+  //         // TODO: call API to submit withdrawal request
+  //         this.showToast('Withdrawal request submitted!', 'success');
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // await alert.present();
 }
 
 

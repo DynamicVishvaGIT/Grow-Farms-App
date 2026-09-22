@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.growfarms.nature" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.growfarms.nature" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Grow-Farms-App</name>
     <description>Grow Farms App live with nature </description>
     <author email="prasenjit@dynamicvishva.in" href="http://ionicframework.com/">Dynamic Vishva Technology Sollutions Pvt. Ltd.</author>
@@ -23,8 +23,8 @@
     <platform name="android">
         <preference name="Scheme" value="http" />
         <preference name="android-minSdkVersion" value="24" />
-        <preference name="android-targetSdkVersion" value="35" />
-        <preference name="android-compileSdkVersion" value="35" />
+        <preference name="android-targetSdkVersion" value="36" />
+        <preference name="android-compileSdkVersion" value="36" />
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="StatusBarBackgroundColor" value="#ffffff" />
         <preference name="StatusBarStyle" value="default" />

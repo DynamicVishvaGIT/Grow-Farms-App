@@ -9,6 +9,7 @@ import { Common } from './common';
 export class Api {
   
   baseUrl = '';
+  device_type = 'android';
 
   constructor(public httpClient: HttpClient, public commonService: Common) { 
     this.baseUrl = this.commonService.getBaseURL();
@@ -25,6 +26,17 @@ export class Api {
 
   verify_otp(user:any) {
     return this.httpClient.post(this.baseUrl + 'verify_otp', user)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  app_update() {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('device', this.device_type);
+    console.log(urlSearchParams.toString());
+    return this.httpClient.get(this.baseUrl + 'app_update?'+urlSearchParams.toString())
     .pipe(
       retry(1),
       catchError(this.errorHandler)
@@ -165,6 +177,64 @@ export class Api {
     urlSearchParams.append('user_id', payment.user_id);
     urlSearchParams.append('property_id', payment.property_id);
     return this.httpClient.get(this.baseUrl + 'customer_dashboard?' +urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  investor_dashboard(property:any) {
+    return this.httpClient.post(this.baseUrl + 'investor_dashboard', property)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  mobile_investor_passbook() {
+    return this.httpClient.get(this.baseUrl + 'mobile_investor_passbook')
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  load_withdrawal_details(booking_id:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('booking_id', booking_id);
+    return this.httpClient.get(this.baseUrl + 'load_withdrawal_details?' +urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  mobile_create_withdraw_request(withdrawal:any) {
+    return this.httpClient.post(this.baseUrl + 'mobile_create_withdraw_request', withdrawal)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  load_my_withdraw_requests() {
+    return this.httpClient.get(this.baseUrl + 'load_my_withdraw_requests')
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  switch_account() {
+    return this.httpClient.post(this.baseUrl + 'switch_account/',{})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  get_user_accounts(user:any) {
+    return this.httpClient.post(this.baseUrl + 'get_user_accounts', user)
     .pipe(
       retry(1),
       catchError(this.errorHandler)

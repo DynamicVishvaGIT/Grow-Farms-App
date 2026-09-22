@@ -105,16 +105,25 @@ export class VerifyOtpPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       const accounts = response.accounts || [];
+      console.log(accounts);
       this.commonService.dismissLoading();
-      if (accounts.length === 1) {
+      if (accounts.length === 0) {
         const account = accounts[0];
-        const userType = account.user_type || response.user_type;
+        // const userType = account.user_type || response.user_type;
         console.log('Single Account:', account);
-        console.log('User Type:', userType);
-        if (userType === 'User') {
+        // console.log('User Type:', userType);
+        let user = response.user_details;
+        user.user_id = response.user_id;
+        user.access_token = response.access_token;
+        user.refresh_token = response.refresh_token;
+        user.user_type = response.user_type;
+        console.log(user);
+        this.userService.setCurrentUser(user);
+        localStorage.setItem('currentUser',JSON.stringify(user));
+        if (response.user_type === 'User') {
           this.router.navigate(['/home']);
         } 
-        else if (userType === 'Investor') {
+        else if (response.user_type === 'Investor') {
           this.router.navigate(['/investor-dashboard']);
         } 
         else {
@@ -134,7 +143,7 @@ export class VerifyOtpPage implements OnInit {
         return;
       }
       /** CASE 3:* No account found*/
-      this.commonService.showToastMessage('No account found','toast-error','',4000);
+      // this.commonService.showToastMessage('No account found','toast-error','',4000);
       // let user = response.user_details;
       // user.user_id = response.user_id;
       // user.session_id = response.session_id;

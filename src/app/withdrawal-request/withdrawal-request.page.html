@@ -1,0 +1,490 @@
+
+<div class="withdrawal-container">
+  <!-- Header Section -->
+  <header class="header">
+    <button class="back-btn" (click)="onBack()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5"
+          stroke="#000000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <h1>Withdrawal Request</h1>
+    <div class="notification-icon" (click)="onPassbook()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 2v20" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 7h6" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 11h6" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 15h4" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>  
+    </div>  
+    <div class="notification-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.3214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z"
+          stroke="#000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+        <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3495 21.9965 12 21.9965C11.6505 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"
+          stroke="#000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+        <circle cx="18" cy="6" r="3" fill="#FF3B30"/>
+      </svg>
+    </div>
+  </header>
+  <!-- Main Content Card -->
+  <div class="content-scroll">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <!-- Investment Card -->
+    <div class="investment-card">
+      <div class="card-top">
+        <h2>{{ withdrawalDetails?.project_name }}</h2>
+        <span class="badge-active">
+          {{ withdrawalDetails?.status }}
+        </span>
+      </div>
+      <p class="sub-location">
+        {{ withdrawalDetails?.property_name }}
+      </p>
+      <div class="divider"></div>
+      <div class="info-row">
+        <span class="label">Invested Amount</span>
+        <span class="value">
+          {{ withdrawalDetails?.investment?.invested_amount | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+        </span>
+      </div>
+      <div class="info-row">
+        <span class="label">Interest Earned</span>
+        <span class="value green">
+          + {{ withdrawalDetails?.investment?.interest_earned | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+        </span>
+      </div>
+      <div class="total-box">
+        <span class="total-label">Total Investment</span>
+        <span class="total-value">
+          {{ withdrawalDetails?.investment?.total_investment | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+        </span>
+      </div>
+    </div>
+    <!-- Withdrawal Eligibility Card -->
+    <div class="eligibility-card">
+      <h3>Withdrawal Eligibility</h3>
+      <!-- Dynamic Progress Bar -->
+      <div class="progress-bar-container">
+        <div
+          class="progress-fill"
+          [style.width.%]="eligibleProgress">
+        </div>
+      </div>
+      <div class="legend-row">
+        <span class="legend-item">
+          <span class="dot green"></span>
+          Eligible
+        </span>
+        <span class="legend-item">
+          <span class="dot orange"></span>
+          Locked
+        </span>
+      </div>
+      <div class="eligibility-details">
+        <div class="row">
+          <span class="label">
+            Withdrawal Eligible Amount
+          </span>
+          <span class="val green">
+            {{ withdrawalDetails?.withdrawal_eligibility?.eligible_amount | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+          </span>
+        </div>
+        <div class="row">
+          <span class="label">
+            <svg class="lock-icon"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z"
+                stroke="#F59E0B"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+              <path
+                d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
+                stroke="#F59E0B"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            </svg>
+            Lock-in Amount
+          </span>
+          <span class="val">
+            {{ withdrawalDetails?.withdrawal_eligibility?.locked_amount | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+          </span>
+        </div>
+        <div class="row">
+          <span class="label">
+            Paid Amount
+          </span>
+          <span class="val">
+            {{ withdrawalDetails?.withdrawal_eligibility?.paid_amount | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+          </span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row remaining">
+        <span class="label">
+          Remaining Limit
+        </span>
+        <span class="val">
+          {{ withdrawalDetails?.withdrawal_eligibility?.remaining_limit | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+        </span>
+      </div>
+    </div>
+    <!-- Input Section -->
+    <div class="input-section">
+      <label>Enter Withdrawal Amount</label>
+      <div class="input-box">
+        <span class="currency">₹</span>
+        <input type="text" [(ngModel)]="withdrawalAmount" inputmode="numeric"/>
+      </div>
+      <div class="helper-text">
+        <svg width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="#71717A"
+            stroke-width="2"/>
+          <path
+            d="M12 16V12"
+            stroke="#71717A"
+            stroke-width="2"
+            stroke-linecap="round"/>
+          <path
+            d="M12 8H12.01"
+            stroke="#71717A"
+            stroke-width="2"
+            stroke-linecap="round"/>
+        </svg>
+        Maximum withdrawable:
+        {{ withdrawalDetails?.withdrawal_eligibility?.remaining_limit | currency:'INR':'symbol':'1.0-0':'en-IN' }}
+      </div>
+    </div>
+    <!-- Action Button -->
+    <button class="submit-btn" (click)="openConfirmModal()">
+      Submit Withdrawal Request
+    </button><!--[disabled]="!withdrawalDetails?.withdrawal_eligibility?.withdrawal_enabled"-->
+  </div>
+  <!-- Sweet Alert 1: Confirm Withdrawal Modal -->
+  <div class="modal-backdrop" *ngIf="showConfirmModal">
+    <div class="sweet-alert-card">
+      <div class="icon-circle warning">
+        <svg width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18C1.64539 18.3024 1.55295 18.6453 1.55192 18.9938C1.55088 19.3424 1.64128 19.6858 1.8142 19.9893C1.98711 20.2928 2.23661 20.5445 2.53775 20.7188C2.83889 20.893 3.18168 20.9841 3.53 20.98H20.47C20.8183 20.9841 21.1611 20.893 21.4623 20.7188C21.7634 20.5445 22.0129 19.3424 22.4481 18.9938C22.4471 18.6453 22.3546 18.3024 22.18 18L13.71 3.86C13.5318 3.56499 13.2804 3.32421 12.983 3.16321C12.6855 3.00222 12.3512 2.92676 12.015 2.92676C11.6788 2.92676 11.3445 3.00222 11.047 3.16321C10.7496 3.32421 10.4982 3.56499 10.32 3.86H10.29Z"
+            stroke="#F59E0B"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Confirm Withdrawal</h3>
+      <p>
+        Are you sure you want to submit a withdrawal request for
+        {{ withdrawalAmount | currency:'INR':'symbol':'1.0-0':'en-IN' }}?
+      </p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeModals()">Cancel</button>
+        <button class="btn-submit" (click)="mobile_create_withdraw_request()">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sweet Alert 2: Request Submitted Modal -->
+  <div class="modal-backdrop" *ngIf="showSuccessModal">
+    <div class="sweet-alert-card">
+      <div class="icon-circle success">
+        <svg width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 6L9 17L4 12"
+            stroke="#10B981"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Request Submitted</h3>
+      <p>
+        Your withdrawal request has been submitted successfully.
+      </p>
+      <button class="btn-done" (click)="finishFlow()">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="withdrawal-container">
+  <header class="header">
+    <button class="back-btn" (click)="onBack()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <h1>Withdrawal Request</h1>
+    <ion-icon name="wallet-outline" (click)="onPassbook()"></ion-icon>
+    <div class="notification-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.3214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3495 21.9965 12 21.9965C11.6505 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="18" cy="6" r="3" fill="#FF3B30"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="content-scroll">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="investment-card">
+      <div class="card-top">
+        <h2>Skybreez</h2>
+        <span class="badge-active">Active</span>
+      </div>
+      <p class="sub-location">Gat No: GT-45/2, Luxury Apartments</p>
+
+      <div class="divider"></div>
+
+      <div class="info-row">
+        <span class="label">Invested Amount</span>
+        <span class="value">₹15,00,000</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Interest Earned</span>
+        <span class="value green">+ ₹1,50,000</span>
+      </div>
+
+      <div class="total-box">
+        <span class="total-label">Total Investment</span>
+        <span class="total-value">₹16,50,000</span>
+      </div>
+    </div>
+
+    <div class="eligibility-card">
+      <h3>Withdrawal Eligibility</h3>
+
+      <div class="progress-bar-container">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="legend-row">
+        <span class="legend-item"><span class="dot green"></span> Eligible</span>
+        <span class="legend-item"><span class="dot orange"></span> Locked</span>
+      </div>
+
+      <div class="eligibility-details">
+        <div class="row">
+          <span class="label">Withdrawal Eligible Amount</span>
+          <span class="val green">₹10,00,000</span>
+        </div>
+        <div class="row">
+          <span class="label"><svg class="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Lock-in Amount</span>
+          <span class="val">₹4,00,000</span>
+        </div>
+        <div class="row">
+          <span class="label">Paid Amount</span>
+          <span class="val">₹2,00,000</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row remaining">
+        <span class="label">Remaining Limit</span>
+        <span class="val">₹8,00,000</span>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <label>Enter Withdrawal Amount</label>
+      <div class="input-box">
+        <span class="currency">₹</span>
+        <input type="text" [(ngModel)]="withdrawalAmount" />
+      </div>
+      <div class="helper-text">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#71717A" stroke-width="2"/><path d="M12 16V12" stroke="#71717A" stroke-width="2" stroke-linecap="round"/><path d="M12 8H12.01" stroke="#71717A" stroke-width="2" stroke-linecap="round"/></svg>
+        Maximum withdrawable: ₹10,00,000
+      </div>
+    </div>
+
+    <button class="submit-btn" (click)="openConfirmModal()">Submit Withdrawal Request</button>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showConfirmModal">
+    <div class="sweet-alert-card">
+      <div class="icon-circle warning">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18C1.64539 18.3024 1.55295 18.6453 1.55192 18.9938C1.55088 19.3424 1.64128 19.6858 1.8142 19.9893C1.98711 20.2928 2.23661 20.5445 2.53775 20.7188C2.83889 20.893 3.18168 20.9841 3.53 20.98H20.47C20.8183 20.9841 21.1611 20.893 21.4623 20.7188C21.7634 20.5445 22.0129 20.2928 22.1858 19.9893C22.3587 19.6858 22.4491 19.3424 22.4481 18.9938C22.4471 18.6453 22.3546 18.3024 22.18 18L13.71 3.86C13.5318 3.56499 13.2804 3.32421 12.983 3.16321C12.6855 3.00222 12.3512 2.92676 12.015 2.92676C11.6788 2.92676 11.3445 3.00222 11.047 3.16321C10.7496 3.32421 10.4982 3.56499 10.32 3.86H10.29Z" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Confirm Withdrawal</h3>
+      <p>Are you sure you want to submit a withdrawal request for ₹10,00,000?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeModals()">Cancel</button>
+        <button class="btn-submit" (click)="confirmSubmit()">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showSuccessModal">
+    <div class="sweet-alert-card">
+      <div class="icon-circle success">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6L9 17L4 12" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Request Submitted</h3>
+      <p>Your withdrawal request has been submitted successfully.</p>
+      <button class="btn-done" (click)="finishFlow()">Done</button>
+    </div>
+  </div>
+</div> -->
+<!-- <div class="withdrawal-container">
+  <header class="header">
+    <button class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <h1>Withdrawal Request</h1>
+    <div class="notification-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.3214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3495 21.9965 12 21.9965C11.6505 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="18" cy="6" r="3" fill="#FF3B30"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="content-scroll">
+    <div class="investment-card">
+      <div class="card-top">
+        <h2>Skybreez</h2>
+        <span class="badge-active">Active</span>
+      </div>
+      <p class="sub-location">Gat No: GT-45/2, Luxury Apartments</p>
+      
+      <div class="divider"></div>
+
+      <div class="info-row">
+        <span class="label">Invested Amount</span>
+        <span class="value">₹15,00,000</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Interest Earned</span>
+        <span class="value green">+ ₹1,50,000</span>
+      </div>
+
+      <div class="total-box">
+        <span class="total-label">Total Investment</span>
+        <span class="total-value">₹16,50,000</span>
+      </div>
+    </div>
+
+    <div class="eligibility-card">
+      <h3>Withdrawal Eligibility</h3>
+      
+      <div class="progress-bar-container">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="legend-row">
+        <span class="legend-item"><span class="dot green"></span> Eligible</span>
+        <span class="legend-item"><span class="dot orange"></span> Locked</span>
+      </div>
+
+      <div class="eligibility-details">
+        <div class="row">
+          <span class="label">Withdrawal Eligible Amount</span>
+          <span class="val green">₹10,00,000</span>
+        </div>
+        <div class="row">
+          <span class="label"><svg class="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Lock-in Amount</span>
+          <span class="val">₹4,00,000</span>
+        </div>
+        <div class="row">
+          <span class="label">Paid Amount</span>
+          <span class="val">₹2,00,000</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row remaining">
+        <span class="label">Remaining Limit</span>
+        <span class="val">₹8,00,000</span>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <label>Enter Withdrawal Amount</label>
+      <div class="input-box">
+        <span class="currency">₹</span>
+        <input type="text" [(ngModel)]="withdrawalAmount" />
+      </div>
+      <div class="helper-text">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#71717A" stroke-width="2"/><path d="M12 16V12" stroke="#71717A" stroke-width="2" stroke-linecap="round"/><path d="M12 8H12.01" stroke="#71717A" stroke-width="2" stroke-linecap="round"/></svg>
+        Maximum withdrawable: ₹10,00,000
+      </div>
+    </div>
+
+    <button class="submit-btn" (click)="openConfirmModal()">Submit Withdrawal Request</button>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showConfirmModal">
+    <div class="sweet-alert-card">
+      <div class="icon-circle warning">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18C1.64539 18.3024 1.55295 18.6453 1.55192 18.9938C1.55088 19.3424 1.64128 19.6858 1.8142 19.9893C1.98711 20.2928 2.23661 20.5445 2.53775 20.7188C2.83889 20.893 3.18168 20.9841 3.53 20.98H20.47C20.8183 20.9841 21.1611 20.893 21.4623 20.7188C21.7634 20.5445 22.0129 20.2928 22.1858 19.9893C22.3587 19.6858 22.4491 19.3424 22.4481 18.9938C22.4471 18.6453 22.3546 18.3024 22.18 18L13.71 3.86C13.5318 3.56499 13.2804 3.32421 12.983 3.16321C12.6855 3.00222 12.3512 2.92676 12.015 2.92676C11.6788 2.92676 11.3445 3.00222 11.047 3.16321C10.7496 3.32421 10.4982 3.56499 10.32 3.86H10.29Z" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Confirm Withdrawal</h3>
+      <p>Are you sure you want to submit a withdrawal request for ₹10,00,000?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeModals()">Cancel</button>
+        <button class="btn-submit" (click)="confirmSubmit()">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showSuccessModal">
+    <div class="sweet-alert-card">
+      <div class="icon-circle success">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6L9 17L4 12" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Request Submitted</h3>
+      <p>Your withdrawal request has been submitted successfully.</p>
+      <button class="btn-done" (click)="finishFlow()">Done</button>
+    </div>
+  </div>
+</div> -->
