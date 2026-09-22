@@ -445,6 +445,29 @@ ion-content {
   color: #4CAF50 !important;
   font-weight: 600;
 }
+
+.delete_account{
+  // background: red;
+  // color: white;
+  // background: #ff00008a;
+  background: rgb(255 0 0 / 32%);
+  color: red !important;
+}
+
+.delete_icon{
+  color:red !important;
+  font-size: 15px;
+}
+
+.chip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.label{
+  font-size: 10px;
+  font-weight: 800;
+}
 // ion-content {
 //     --background: #f5f5f5;
 //   }

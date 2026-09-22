@@ -3,6 +3,14 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <!-- Header Section -->
+   <!-- <ion-col size="6" (click)="delete_dialog()">
+          <div class="chip-container">
+            <ion-chip class="delete_account">
+              <ion-icon name="trash" class="delete_icon"></ion-icon>
+              <ion-label class="label"><b>Delete My Account</b></ion-label>
+            </ion-chip>
+          </div>
+        </ion-col> -->
   <div class="header-section">
     <div class="welcome-text">
       <h1 class="welcome-title">Profile</h1>
@@ -95,6 +103,16 @@
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </div>
     </div>
+
+     <ion-col size="6" (click)="delete_dialog()">
+          <div class="chip-container">
+            <ion-chip class="delete_account">
+              <ion-icon name="trash" class="delete_icon"></ion-icon>
+              <ion-label class="label"><b>Delete My Account</b></ion-label>
+            </ion-chip>
+          </div>
+        </ion-col>
+
     </div>
   </div>
 

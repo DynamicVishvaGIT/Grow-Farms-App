@@ -170,7 +170,7 @@
         </div>
         <div class="asset-bottom-meta">
           <span class="inv-label">Inv: {{ formatLakh(asset.invested_amount) }}</span>
-          <span class="val-label asset-bottom-beta">Val: {{ formatLakh(asset.current_value) }}</span>
+          <span class="val-label asset-bottom-beta">Val: {{ formatLakh(asset.paid_amount) }}</span>
         </div>
         <div class="asset-progress-track">
           <div class="asset-progress-fill" [style.width.%]="getAssetProgress(asset)"></div>

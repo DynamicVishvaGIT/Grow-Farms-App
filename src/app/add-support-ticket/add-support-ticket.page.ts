@@ -40,6 +40,7 @@ export class AddSupportTicketPage implements OnInit {
   selectedProperty: string = '';
   isCategorySheetOpen = false;
   isPaymentSheetOpen = false;
+  isAlertOpen = false;
 
   // Ticket Data
   ticketData: TicketData = {
@@ -452,7 +453,39 @@ export class AddSupportTicketPage implements OnInit {
    * Go back
    */
   goBack() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/my-profile']);
+  }
+
+
+  async openUploadConfirm() {
+    if (this.isAlertOpen) {
+      return;
+    }
+  
+    this.isAlertOpen = true;
+  
+    const alert = await this.alertController.create({
+      header: 'Permission Required',
+      message: 'Do you want to select files from your device?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Allow',
+          handler: () => {
+            this.uploadFiles();
+          }
+        }
+      ]
+    });
+  
+    alert.onDidDismiss().then(() => {
+      this.isAlertOpen = false;
+    });
+  
+    await alert.present();
   }
 
   /**
@@ -467,5 +500,6 @@ export class AddSupportTicketPage implements OnInit {
     });
     await toast.present();
   }
+  
 
 }

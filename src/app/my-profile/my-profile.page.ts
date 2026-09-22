@@ -533,4 +533,46 @@ export class MyProfilePage implements OnInit {
     this.router.navigateByUrl('login-by-type');
   }
 
+   async delete_dialog() {
+    const confirm = await this.alertController.create({
+      // header: this.sold_unsold_text=='Mark as Sold'?'Mark as Sold':'Mark as Unsold',
+      header: 'Delete My Account',
+      message: 'Do you want delete your account.?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Ok, Delete it',
+          handler: () => {
+            // this.delete_user_account();
+          }
+        }
+      ]
+    });
+   await  confirm.present();
+  }
+   
+
+  delete_user_account() {
+    // let formData = new FormData();
+    // formData.append("user_id",this.currentUser.user_id);
+    // formData.append("apptype",'mobile')
+    // this.apiService.delete_user(formData)
+    // .pipe(takeUntil(this._unsubscribeAll))
+    // .subscribe((response:any) => {
+    //   console.log('delete_user',response);
+    //   this.commonService.showToastMessage(response.message, 'error-toast','', 4000);
+    //   this.logoutMyDevice();
+    // },
+    // respError => {
+    //   this.addAdvantage = true;
+    //   this.commonService.showToastMessage(respError, 'error-toast','', 2000);
+    // })
+  }
+  
+
 }

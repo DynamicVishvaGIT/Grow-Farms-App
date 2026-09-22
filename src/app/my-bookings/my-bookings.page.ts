@@ -28,6 +28,10 @@ export class MyBookingsPage implements OnInit {
   selectedFilter: string = 'all';
   filteredBookings:any = [];
   dataLoaded:boolean = true;
+    showSuccessModal: boolean = false;
+      booking_id: string = '';
+
+
 
 constructor(
   private router: Router,
@@ -155,7 +159,7 @@ async onNotificationClick() {
  * View booking details
  */
 async viewBooking(booking: any) {
-  // console.log('View booking:', booking);
+  console.log('View booking:', booking);
   // TODO: Navigate to booking details page or open modal
   this.router.navigate(['/booking-details', booking.booking_id, booking.property_id]);
   // this.router.navigate(['/booking-details']);
@@ -221,6 +225,16 @@ private async confirmSchedule(booking: any, date: string, time: string) {
   console.log('Scheduling visit:', { booking, date, time });
   await this.showToast('Visit scheduled successfully!', 'success');
 }
+ finishFlow() {
+    this.showSuccessModal = false;
+    this.onPassbook();
+    // Resets or stays on the withdrawal request page cleanly
+  }
+
+   onPassbook() {
+    // this.router.navigate(['/passbook']);
+    this.router.navigate(['/passbook', this.booking_id]);
+  }
 
 /**
  * Get remaining payment amount
@@ -228,6 +242,7 @@ private async confirmSchedule(booking: any, date: string, time: string) {
 getRemainingAmount(booking: any): number {
   return booking.totalAmount - booking.paidAmount;
 }
+
 
 /**
  * Format currency

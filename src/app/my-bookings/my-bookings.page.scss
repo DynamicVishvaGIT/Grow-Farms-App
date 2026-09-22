@@ -46,17 +46,20 @@ ion-content {
   
   .notification-icon {
     position: relative;
-    width: 36px;
-    height: 36px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+          margin-left: 4px !important;
+
   
     ion-icon {
       font-size: 28px;
       color: #000000;
     }
+    
   
     .notification-badge {
       position: absolute;
@@ -69,6 +72,10 @@ ion-content {
       border: 2px solid #ffffff;
     }
   }
+
+  .align{
+      margin-left: 4px !important;
+    }
   // Search Section
 .search-section {
     // padding: 0 20px 20px 20px;

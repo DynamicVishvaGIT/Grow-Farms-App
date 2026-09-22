@@ -115,7 +115,7 @@
       </div>
 
       <!-- Transaction ID -->
-      <div class="input-group">
+      <div class="input-group" *ngIf="paymentJson.payment_method!='Cash'">
         <ion-label class="required">Transaction ID/ Reference Number</ion-label>
         <ion-item class="custom-input" lines="none">
           <ion-input
@@ -159,7 +159,7 @@
     </div> -->
 
     <!-- Upload Receipt Card -->
-    <div class="upload-card">
+    <div class="upload-card" *ngIf="paymentJson.payment_method!='Cash'">
       <h3 class="upload-title required">Upload Payment Receipt</h3>
       <!-- <div class="upload-divider"></div> -->
       
